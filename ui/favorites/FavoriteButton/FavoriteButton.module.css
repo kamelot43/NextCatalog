@@ -1,0 +1,15 @@
+.button {
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text);
+    border-radius: 10px;
+    padding: 6px 10px;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1;
+}
+
+.button[aria-pressed='true'] {
+    border-color: var(--accent);
+    color: var(--accent);
+}

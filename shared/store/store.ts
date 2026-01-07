@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { brandReducer } from '@/entities/brand/model/brandSlice';
+import { favoritesReducer } from '@/features/favorites/model/favoritesSlice';
 
 export const store = configureStore({
     reducer: {
-        brand: brandReducer,
+        favorites: favoritesReducer,
     },
 });
 

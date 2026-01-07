@@ -1,0 +1,65 @@
+.page {
+    display: grid;
+    gap: 16px;
+}
+
+.top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.title {
+    margin: 0;
+    font-size: 28px;
+}
+
+.meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--muted);
+}
+
+.dot {
+    color: var(--border);
+}
+
+.price {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.specs {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.specItem {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px;
+}
+
+.specLabel {
+    color: var(--muted);
+    font-size: 12px;
+    margin-bottom: 6px;
+}
+
+.back {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.back:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 700px) {
+    .specs {
+        grid-template-columns: 1fr;
+    }
+}

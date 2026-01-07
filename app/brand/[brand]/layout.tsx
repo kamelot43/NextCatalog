@@ -1,5 +1,5 @@
 import { Providers } from '@/shared/store/provider';
-import { Header } from '@/widgets/header/Header';
+import { Header } from '@/ui/layout/Header/Header';
 
 export default async function BrandLayout({
   children,
