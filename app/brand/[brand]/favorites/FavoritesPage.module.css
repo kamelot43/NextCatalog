@@ -1,0 +1,9 @@
+.page {
+    display: grid;
+    gap: 16px;
+}
+
+.title {
+    margin: 0;
+    font-size: 24px;
+}
