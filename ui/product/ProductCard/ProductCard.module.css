@@ -44,3 +44,9 @@
     font-size: 18px;
     font-weight: 600;
 }
+
+.actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}

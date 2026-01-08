@@ -1,12 +1,15 @@
+export type Brand = 'alpha' | 'beta';
+export type Category = 'sedan' | 'suv' | 'hatchback' | 'coupe';
+
 export type Product = {
     id: string;
-    brand: string;
+    brand: Brand;
     slug: string;
     title: string;
     price: number;
     currency: 'RUB' | 'USD';
     year: number;
-    category: 'sedan' | 'suv' | 'hatchback';
+    category: Category;
     image?: string;
     specs: {
         powerHp: number;
@@ -15,7 +18,7 @@ export type Product = {
     };
 };
 
-export const PRODUCTS_BY_BRAND: Record<string, Product[]> = {
+export const PRODUCTS_BY_BRAND: Record<Brand, Product[]> = {
     alpha: [
         {
             id: 'a-001',
@@ -49,6 +52,50 @@ export const PRODUCTS_BY_BRAND: Record<string, Product[]> = {
             year: 2023,
             category: 'hatchback',
             specs: { powerHp: 120, transmission: 'MT', drive: 'FWD' },
+        },
+        {
+            id: 'a-004',
+            brand: 'alpha',
+            slug: 'alpha-sedan-sport',
+            title: 'Alpha Sedan Sport',
+            price: 2_990_000,
+            currency: 'RUB',
+            year: 2025,
+            category: 'sedan',
+            specs: { powerHp: 180, transmission: 'AT', drive: 'RWD' },
+        },
+        {
+            id: 'a-005',
+            brand: 'alpha',
+            slug: 'alpha-suv-urban',
+            title: 'Alpha SUV Urban',
+            price: 2_750_000,
+            currency: 'RUB',
+            year: 2024,
+            category: 'suv',
+            specs: { powerHp: 165, transmission: 'AT', drive: 'FWD' },
+        },
+        {
+            id: 'a-006',
+            brand: 'alpha',
+            slug: 'alpha-hatch-plus',
+            title: 'Alpha Hatch Plus',
+            price: 2_050_000,
+            currency: 'RUB',
+            year: 2025,
+            category: 'hatchback',
+            specs: { powerHp: 135, transmission: 'AT', drive: 'FWD' },
+        },
+        {
+            id: 'a-007',
+            brand: 'alpha',
+            slug: 'alpha-coupe-r',
+            title: 'Alpha Coupe R',
+            price: 3_450_000,
+            currency: 'RUB',
+            year: 2025,
+            category: 'coupe',
+            specs: { powerHp: 220, transmission: 'AT', drive: 'RWD' },
         },
     ],
 
@@ -86,5 +133,50 @@ export const PRODUCTS_BY_BRAND: Record<string, Product[]> = {
             category: 'hatchback',
             specs: { powerHp: 110, transmission: 'MT', drive: 'FWD' },
         },
+        {
+            id: 'b-004',
+            brand: 'beta',
+            slug: 'beta-sedan-lux',
+            title: 'Beta Sedan Lux',
+            price: 28_400,
+            currency: 'USD',
+            year: 2025,
+            category: 'sedan',
+            specs: { powerHp: 175, transmission: 'AT', drive: 'RWD' },
+        },
+        {
+            id: 'b-005',
+            brand: 'beta',
+            slug: 'beta-suv-trail',
+            title: 'Beta SUV Trail',
+            price: 36_800,
+            currency: 'USD',
+            year: 2024,
+            category: 'suv',
+            specs: { powerHp: 230, transmission: 'AT', drive: 'AWD' },
+        },
+        {
+            id: 'b-006',
+            brand: 'beta',
+            slug: 'beta-hatch-plus',
+            title: 'Beta Hatch Plus',
+            price: 21_300,
+            currency: 'USD',
+            year: 2025,
+            category: 'hatchback',
+            specs: { powerHp: 130, transmission: 'AT', drive: 'FWD' },
+        },
+        {
+            id: 'b-007',
+            brand: 'beta',
+            slug: 'beta-coupe-gt',
+            title: 'Beta Coupe GT',
+            price: 38_900,
+            currency: 'USD',
+            year: 2025,
+            category: 'coupe',
+            specs: { powerHp: 250, transmission: 'AT', drive: 'RWD' },
+        },
     ],
 };
+

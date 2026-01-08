@@ -3,6 +3,12 @@
     gap: 16px;
 }
 
+.actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
 .top {
     display: flex;
     align-items: flex-start;

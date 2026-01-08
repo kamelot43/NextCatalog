@@ -2,6 +2,7 @@ import Link from 'next/link';
 import styles from './ProductDetails.module.css';
 import type { Product } from '@/shared/mock/products';
 import { FavoriteButton } from '@/ui/favorites/FavoriteButton/FavoriteButton';
+import { CompareButton } from '@/ui/comparison/CompareButton/CompareButton';
 
 type Props = {
     brand: string;
@@ -21,7 +22,10 @@ export function ProductDetails({ brand, product }: Props) {
                     </div>
                 </div>
 
-                <FavoriteButton productId={product.id} />
+                <div className={styles.actions}>
+                    <CompareButton productId={product.id} />
+                    <FavoriteButton productId={product.id} />
+                </div>
             </div>
 
             <div className={styles.price}>
