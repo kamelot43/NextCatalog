@@ -1,7 +1,11 @@
-import { createStringArrayStorage } from '@/shared/helpers/storage/stringArrayStorage';
+import { createStorage } from '@/shared/helpers/storage/createStorage';
 
-export const favoritesStorage = createStringArrayStorage('nextcatalog:favorites');
+export const favoritesByBrandStorage = createStorage<Record<string, string[]>>(
+    'nextcatalog:favoritesByBrand',
+    {}
+);
 
-export const comparisonStorage = createStringArrayStorage('nextcatalog:comparison', {
-    maxItems: 4,
-});
+export const comparisonByBrandStorage = createStorage<Record<string, string[]>>(
+    'nextcatalog:comparisonByBrand',
+    {}
+);

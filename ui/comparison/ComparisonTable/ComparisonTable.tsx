@@ -14,7 +14,7 @@ type Props = {
 
 export function ComparisonTable({ brand, products }: Props) {
     const dispatch = useDispatch<AppDispatch>();
-    const ids = useSelector((s: RootState) => s.comparison.ids);
+    const ids = useSelector((s: RootState) => s.comparison.idsByBrand[brand] ?? []);
     const max = useSelector((s: RootState) => s.comparison.max);
 
     const items = ids
@@ -59,7 +59,7 @@ export function ComparisonTable({ brand, products }: Props) {
                     Selected: <strong>{items.length}</strong> / {max}
                 </div>
 
-                <button className={styles.clear} onClick={() => dispatch(clearCompare())}>
+                <button className={styles.clear} onClick={() => dispatch(clearCompare({ brand }))}>
                     Clear all
                 </button>
             </div>
@@ -74,7 +74,7 @@ export function ComparisonTable({ brand, products }: Props) {
                             </div>
                             <button
                                 className={styles.remove}
-                                onClick={() => dispatch(removeCompare(p.id))}
+                                onClick={() => dispatch(removeCompare({ brand, id: p.id }))}
                             >
                                 Remove
                             </button>
@@ -82,10 +82,20 @@ export function ComparisonTable({ brand, products }: Props) {
                     ))}
                 </div>
 
-                <Row label="Price" values={items.map((p) => `${p.price.toLocaleString('ru-RU')} ${p.currency}`)} />
+                <HighlightRow
+                    label="Price"
+                    values={items.map((p) => ({ value: p.price, text: formatPrice(p.price, p.currency) }))}
+                    highlightIndex={getMinIndex(items.map((p) => p.price))}
+                    highlightTitle="Best price"
+                />
                 <Row label="Year" values={items.map((p) => String(p.year))} />
                 <Row label="Category" values={items.map((p) => p.category.toUpperCase())} />
-                <Row label="Power" values={items.map((p) => `${p.specs.powerHp} hp`)} />
+                <HighlightRow
+                    label="Power"
+                    values={items.map((p) => ({ value: p.specs.powerHp, text: `${p.specs.powerHp} hp` }))}
+                    highlightIndex={getMaxIndex(items.map((p) => p.specs.powerHp))}
+                    highlightTitle="Max power"
+                />
                 <Row label="Transmission" values={items.map((p) => p.specs.transmission)} />
                 <Row label="Drive" values={items.map((p) => p.specs.drive)} />
             </div>
@@ -104,4 +114,62 @@ function Row({ label, values }: { label: string; values: string[] }) {
             ))}
         </div>
     );
+}
+
+function HighlightRow({
+  label,
+  values,
+  highlightIndex,
+  highlightTitle,
+}: {
+    label: string;
+    values: { value: number; text: string }[];
+    highlightIndex: number;
+    highlightTitle: string;
+}) {
+    return (
+        <div className={styles.row}>
+            <div className={styles.cellLeft}>{label}</div>
+            {values.map((v, idx) => (
+                <div
+                    key={idx}
+                    className={`${styles.cell} ${idx === highlightIndex ? styles.best : ''}`}
+                    title={idx === highlightIndex ? highlightTitle : undefined}
+                >
+                    {v.text}
+                </div>
+            ))}
+        </div>
+    );
+}
+
+
+function formatPrice(price: number, currency: string) {
+    return `${price.toLocaleString('ru-RU')} ${currency}`;
+}
+
+function getMinIndex(nums: number[]) {
+    if (nums.length === 0) return -1;
+    let min = nums[0];
+    let idx = 0;
+    for (let i = 1; i < nums.length; i++) {
+        if (nums[i] < min) {
+            min = nums[i];
+            idx = i;
+        }
+    }
+    return idx;
+}
+
+function getMaxIndex(nums: number[]) {
+    if (nums.length === 0) return -1;
+    let max = nums[0];
+    let idx = 0;
+    for (let i = 1; i < nums.length; i++) {
+        if (nums[i] > max) {
+            max = nums[i];
+            idx = i;
+        }
+    }
+    return idx;
 }

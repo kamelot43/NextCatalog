@@ -6,14 +6,15 @@ import type { RootState, AppDispatch } from '@/shared/store/store';
 import { toggleCompare } from '@/features/comparison/model/comparisonSlice';
 
 type Props = {
+    brand: string;
     productId: string;
 };
 
-export function CompareButton({ productId }: Props) {
+export function CompareButton({ productId, brand }: Props) {
     const dispatch = useDispatch<AppDispatch>();
 
-    const ids = useSelector((state: RootState) => state.comparison.ids);
-    const max = useSelector((state: RootState) => state.comparison.max);
+    const ids = useSelector((s: RootState) => s.comparison.idsByBrand[brand] ?? []);
+    const max = useSelector((s: RootState) => s.comparison.max);
 
     const isIn = ids.includes(productId);
     const isLimitReached = !isIn && ids.length >= max;
@@ -25,15 +26,19 @@ export function CompareButton({ productId }: Props) {
             : 'Add to comparison';
 
     return (
-        <button
-            type="button"
-            className={styles.button}
-            aria-pressed={isIn}
-            disabled={isLimitReached}
-            title={title}
-            onClick={() => dispatch(toggleCompare(productId))}
-        >
-            {isIn ? 'Compared' : 'Compare'}
-        </button>
+        <div className={styles.wrap}>
+            <button
+                type="button"
+                className={styles.button}
+                aria-pressed={isIn}
+                disabled={isLimitReached}
+                title={title}
+                onClick={() => dispatch(toggleCompare({ brand, id: productId }))}
+            >
+                {isIn ? 'Compared' : 'Compare'}
+            </button>
+
+            {isLimitReached && <span className={styles.note}>Limit {max}</span>}
+        </div>
     );
 }

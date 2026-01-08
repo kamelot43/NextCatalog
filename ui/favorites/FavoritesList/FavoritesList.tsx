@@ -13,7 +13,7 @@ type Props = {
 };
 
 export function FavoritesList({ brand, products }: Props) {
-    const favIds = useSelector((s: RootState) => s.favorites.ids);
+    const favIds = useSelector((s: RootState) => s.favorites.idsByBrand[brand] ?? []);
 
     const favProducts = products.filter((p) => favIds.includes(p.id));
 

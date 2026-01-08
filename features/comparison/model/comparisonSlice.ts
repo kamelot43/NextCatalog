@@ -1,49 +1,73 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+export type BrandKey = string;
+
 type ComparisonState = {
-    ids: string[];
+    idsByBrand: Record<BrandKey, string[]>;
     max: number;
 };
 
 const initialState: ComparisonState = {
-    ids: [],
+    idsByBrand: {},
     max: 4,
 };
+
+type TogglePayload = { brand: BrandKey; id: string };
+type HydratePayload = Record<BrandKey, string[]>;
 
 const comparisonSlice = createSlice({
     name: 'comparison',
     initialState,
     reducers: {
-        toggleCompare(state, action: PayloadAction<string>) {
-            const id = action.payload;
+        toggleCompare(state, action: PayloadAction<TogglePayload>) {
+            const { brand, id } = action.payload;
 
-            if (state.ids.includes(id)) {
-                state.ids = state.ids.filter((x) => x !== id);
+            const ids = state.idsByBrand[brand] ?? [];
+
+            if (ids.includes(id)) {
+                state.idsByBrand[brand] = ids.filter((x) => x !== id);
                 return;
             }
 
-            if (state.ids.length >= state.max) return; // лимит
-            state.ids.push(id);
+            if (ids.length >= state.max) return;
+
+            state.idsByBrand[brand] = [...ids, id];
         },
 
-        removeCompare(state, action: PayloadAction<string>) {
-            const id = action.payload;
-            state.ids = state.ids.filter((x) => x !== id);
+        removeCompare(state, action: PayloadAction<TogglePayload>) {
+            const { brand, id } = action.payload;
+            const ids = state.idsByBrand[brand] ?? [];
+            state.idsByBrand[brand] = ids.filter((x) => x !== id);
         },
 
-        clearCompare(state) {
-            state.ids = [];
+        clearCompare(state, action: PayloadAction<{ brand: BrandKey }>) {
+            const { brand } = action.payload;
+            state.idsByBrand[brand] = [];
         },
 
-        hydrateCompare(state, action: PayloadAction<string[]>) {
-            // На всякий случай чистим мусор
-            const incoming = action.payload.filter((x) => typeof x === 'string');
-            state.ids = incoming.slice(0, state.max);
+        clearAllCompare(state) {
+            state.idsByBrand = {};
         },
+
+        hydrateCompare(state, action) {
+            const incoming = action.payload ?? {};
+            const out: Record<string, string[]> = {};
+
+            for (const [brand, ids] of Object.entries(incoming)) {
+                out[brand] = (ids ?? []).slice(0, state.max);
+            }
+
+            state.idsByBrand = out;
+        }
     },
 });
 
-export const { toggleCompare, removeCompare, clearCompare, hydrateCompare } =
-    comparisonSlice.actions;
+export const {
+    toggleCompare,
+    removeCompare,
+    clearCompare,
+    clearAllCompare,
+    hydrateCompare,
+} = comparisonSlice.actions;
 
 export const comparisonReducer = comparisonSlice.reducer;
