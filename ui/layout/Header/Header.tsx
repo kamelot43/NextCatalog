@@ -1,7 +1,9 @@
 'use client';
 
-import Link from 'next/link';
 import styles from './Header.module.css';
+import {BrandSwitch} from "@/ui/layout/BrandSwitch/BrandSwitch";
+import {BrandNav} from "@/ui/layout/BrandNav/BrandNav";
+
 
 type Props = {
     brand: string;
@@ -14,17 +16,10 @@ export function Header({ brand }: Props) {
         <header className={styles.header}>
             <div className={styles.logo}>NextCatalog</div>
 
-            <nav className={styles.nav}>
-                <Link href={`${basePath}`}>Home</Link>
-                <Link href={`${basePath}/catalog`}>Catalog</Link>
-                <Link href={`${basePath}/favorites`}>Favorites</Link>
-                <Link href={`${basePath}/comparison`}>Comparison</Link>
-                <Link href={`${basePath}/account`}>Account</Link>
-            </nav>
+            <BrandNav brand={brand} />
 
             <div className={styles.brandSwitch}>
-                <Link href={`/brand/alpha`}>Alpha</Link>
-                <Link href={`/brand/beta`}>Beta</Link>
+                <BrandSwitch currentBrand={brand} brands={['alpha', 'beta']} />
             </div>
         </header>
     );
