@@ -3,6 +3,7 @@ import { getProducts } from '@/shared/api/products';
 import { parseCatalogQuery } from "@/shared/helpers/catalogQuery";
 import { ProductCard } from '@/ui/product/ProductCard/ProductCard';
 import CatalogFilters from "@/ui/catalog-filters/CatalogFilters";
+import {Pagination} from "@/ui/pagination/Pagination";
 
 type PageProps = {
     params: Promise<{ brand: string }>;
@@ -15,7 +16,7 @@ export default async function CatalogPage({ params, searchParams}: PageProps) {
     const products = await getProducts(brand);
 
     const query = parseCatalogQuery(sp);
-    const { q, category, year, sort } = query;
+    const { q, category, year, sort, page, limit } = query;
 
     const categories = Array.from(new Set(products.map((p) => p.category))).sort();
     const years = Array.from(new Set(products.map((p) => p.year))).sort((a, b) => b - a);
@@ -36,7 +37,7 @@ export default async function CatalogPage({ params, searchParams}: PageProps) {
         items = items.filter((p) => p.year === year);
     }
 
-    // сортировка
+    // 2) сортировка
     items = [...items]; // сортировка не должна мутировать исходный массив
     switch (sort) {
         case 'price-asc':
@@ -54,6 +55,15 @@ export default async function CatalogPage({ params, searchParams}: PageProps) {
             break;
     }
 
+    // 3) пагинация (после фильтрации/сортировки)
+    const total = items.length;
+    const totalPages = Math.max(1, Math.ceil(total / limit));
+    const safePage = Math.min(page, totalPages);
+    const start = (safePage - 1) * limit;
+    const end = start + limit;
+    const pageItems = items.slice(start, end);
+    const pathname = `/brand/${brand}/catalog`;
+
     return (
         <section className={styles.page}>
             <aside className={styles.sidebar}>
@@ -65,19 +75,26 @@ export default async function CatalogPage({ params, searchParams}: PageProps) {
                     <h1 className={styles.title}>Catalog</h1>
 
                     <p className={styles.results}>
-                        Results: <b>{items.length}</b>
+                        Results: <b>{total}</b>
                     </p>
                 </div>
 
-                {items.length === 0 ? (
+                {pageItems.length === 0 ? (
                     <p className={styles.empty}>No results. Try changing filters.</p>
                 ) : (
                     <div className={styles.grid}>
-                        {items.map((p) => (
+                        {pageItems.map((p) => (
                             <ProductCard key={p.id} brand={brand} product={p} />
                         ))}
                     </div>
                 )}
+
+                <Pagination
+                    pathname={pathname}
+                    searchParams={sp}
+                    page={safePage}
+                    totalPages={totalPages}
+                />
             </div>
         </section>
     );

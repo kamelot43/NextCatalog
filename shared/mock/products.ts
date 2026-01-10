@@ -1,5 +1,8 @@
 export type Brand = 'alpha' | 'beta';
 export type Category = 'sedan' | 'suv' | 'hatchback' | 'coupe';
+export type Currency = 'RUB' | 'USD';
+export type Transmission = 'AT' | 'MT';
+export type Drive = 'FWD' | 'RWD' | 'AWD';
 
 export type Product = {
     id: string;
@@ -7,176 +10,109 @@ export type Product = {
     slug: string;
     title: string;
     price: number;
-    currency: 'RUB' | 'USD';
+    currency: Currency;
     year: number;
     category: Category;
     image?: string;
     specs: {
         powerHp: number;
-        transmission: 'AT' | 'MT';
-        drive: 'FWD' | 'RWD' | 'AWD';
+        transmission: Transmission;
+        drive: Drive;
     };
 };
 
-export const PRODUCTS_BY_BRAND: Record<Brand, Product[]> = {
-    alpha: [
-        {
-            id: 'a-001',
-            brand: 'alpha',
-            slug: 'alpha-sedan-x',
-            title: 'Alpha Sedan X',
-            price: 2_490_000,
-            currency: 'RUB',
-            year: 2024,
-            category: 'sedan',
-            specs: { powerHp: 150, transmission: 'AT', drive: 'FWD' },
-        },
-        {
-            id: 'a-002',
-            brand: 'alpha',
-            slug: 'alpha-suv-pro',
-            title: 'Alpha SUV Pro',
-            price: 3_290_000,
-            currency: 'RUB',
-            year: 2025,
-            category: 'suv',
-            specs: { powerHp: 190, transmission: 'AT', drive: 'AWD' },
-        },
-        {
-            id: 'a-003',
-            brand: 'alpha',
-            slug: 'alpha-hatch-lite',
-            title: 'Alpha Hatch Lite',
-            price: 1_890_000,
-            currency: 'RUB',
-            year: 2023,
-            category: 'hatchback',
-            specs: { powerHp: 120, transmission: 'MT', drive: 'FWD' },
-        },
-        {
-            id: 'a-004',
-            brand: 'alpha',
-            slug: 'alpha-sedan-sport',
-            title: 'Alpha Sedan Sport',
-            price: 2_990_000,
-            currency: 'RUB',
-            year: 2025,
-            category: 'sedan',
-            specs: { powerHp: 180, transmission: 'AT', drive: 'RWD' },
-        },
-        {
-            id: 'a-005',
-            brand: 'alpha',
-            slug: 'alpha-suv-urban',
-            title: 'Alpha SUV Urban',
-            price: 2_750_000,
-            currency: 'RUB',
-            year: 2024,
-            category: 'suv',
-            specs: { powerHp: 165, transmission: 'AT', drive: 'FWD' },
-        },
-        {
-            id: 'a-006',
-            brand: 'alpha',
-            slug: 'alpha-hatch-plus',
-            title: 'Alpha Hatch Plus',
-            price: 2_050_000,
-            currency: 'RUB',
-            year: 2025,
-            category: 'hatchback',
-            specs: { powerHp: 135, transmission: 'AT', drive: 'FWD' },
-        },
-        {
-            id: 'a-007',
-            brand: 'alpha',
-            slug: 'alpha-coupe-r',
-            title: 'Alpha Coupe R',
-            price: 3_450_000,
-            currency: 'RUB',
-            year: 2025,
-            category: 'coupe',
-            specs: { powerHp: 220, transmission: 'AT', drive: 'RWD' },
-        },
-    ],
+// Генератор случайных данных
+function generateProduct(
+    brand: Brand,
+    id: number,
+    category: Category,
+    baseYear: number,
+    currency: Currency
+): Product {
+    const basePrice = currency === 'RUB'
+        ? Math.floor(Math.random() * 3_000_000) + 1_500_000
+        : Math.floor(Math.random() * 35_000) + 18_000;
 
-    beta: [
-        {
-            id: 'b-001',
-            brand: 'beta',
-            slug: 'beta-sedan-s',
-            title: 'Beta Sedan S',
-            price: 24_900,
-            currency: 'USD',
-            year: 2024,
-            category: 'sedan',
-            specs: { powerHp: 160, transmission: 'AT', drive: 'FWD' },
-        },
-        {
-            id: 'b-002',
-            brand: 'beta',
-            slug: 'beta-suv-max',
-            title: 'Beta SUV Max',
-            price: 33_500,
-            currency: 'USD',
-            year: 2025,
-            category: 'suv',
-            specs: { powerHp: 210, transmission: 'AT', drive: 'AWD' },
-        },
-        {
-            id: 'b-003',
-            brand: 'beta',
-            slug: 'beta-hatch-city',
-            title: 'Beta Hatch City',
-            price: 19_800,
-            currency: 'USD',
-            year: 2023,
-            category: 'hatchback',
-            specs: { powerHp: 110, transmission: 'MT', drive: 'FWD' },
-        },
-        {
-            id: 'b-004',
-            brand: 'beta',
-            slug: 'beta-sedan-lux',
-            title: 'Beta Sedan Lux',
-            price: 28_400,
-            currency: 'USD',
-            year: 2025,
-            category: 'sedan',
-            specs: { powerHp: 175, transmission: 'AT', drive: 'RWD' },
-        },
-        {
-            id: 'b-005',
-            brand: 'beta',
-            slug: 'beta-suv-trail',
-            title: 'Beta SUV Trail',
-            price: 36_800,
-            currency: 'USD',
-            year: 2024,
-            category: 'suv',
-            specs: { powerHp: 230, transmission: 'AT', drive: 'AWD' },
-        },
-        {
-            id: 'b-006',
-            brand: 'beta',
-            slug: 'beta-hatch-plus',
-            title: 'Beta Hatch Plus',
-            price: 21_300,
-            currency: 'USD',
-            year: 2025,
-            category: 'hatchback',
-            specs: { powerHp: 130, transmission: 'AT', drive: 'FWD' },
-        },
-        {
-            id: 'b-007',
-            brand: 'beta',
-            slug: 'beta-coupe-gt',
-            title: 'Beta Coupe GT',
-            price: 38_900,
-            currency: 'USD',
-            year: 2025,
-            category: 'coupe',
-            specs: { powerHp: 250, transmission: 'AT', drive: 'RWD' },
-        },
-    ],
+    const year = baseYear - Math.floor(Math.random() * 3); // 2023-2025
+    const modelNames = {
+        sedan: ['Classic', 'Premium', 'Executive', 'Luxury', 'Sport'],
+        suv: ['Explorer', 'Adventure', 'Trail', 'Urban', 'X-Treme'],
+        hatchback: ['City', 'Compact', 'Urban', 'Style', 'Active'],
+        coupe: ['GT', 'Sport', 'Turbo', 'Racing', 'Coupe']
+    };
+
+    const transmission: Transmission = Math.random() > 0.3 ? 'AT' : 'MT';
+    const drives: Drive[] = ['FWD', 'RWD', 'AWD'];
+    const drive = drives[Math.floor(Math.random() * drives.length)];
+
+    const powerRange = {
+        sedan: { min: 140, max: 250 },
+        suv: { min: 180, max: 300 },
+        hatchback: { min: 100, max: 180 },
+        coupe: { min: 200, max: 350 }
+    };
+
+    const powerHp = Math.floor(
+        Math.random() * (powerRange[category].max - powerRange[category].min + 1)
+    ) + powerRange[category].min;
+
+    const name = modelNames[category][Math.floor(Math.random() * modelNames[category].length)];
+
+    return {
+        id: `${brand[0]}-${id.toString().padStart(3, '0')}`,
+        brand,
+        slug: `${brand}-${category}-${name.toLowerCase().replace(' ', '-')}-${id}`,
+        title: `${brand.charAt(0).toUpperCase() + brand.slice(1)} ${category.charAt(0).toUpperCase() + category.slice(1)} ${name}`,
+        price: Math.round(basePrice / 1000) * 1000, // Округляем до тысяч
+        currency,
+        year,
+        category,
+        specs: {
+            powerHp,
+            transmission,
+            drive
+        }
+    };
+}
+
+// Генерация 20 автомобилей для каждого бренда
+export const PRODUCTS_BY_BRAND: Record<Brand, Product[]> = {
+    alpha: Array.from({ length: 20 }, (_, i) => {
+        const categories: Category[] = ['sedan', 'suv', 'hatchback', 'coupe'];
+        const category = categories[Math.floor(Math.random() * categories.length)];
+        return generateProduct('alpha', i + 1, category, 2025, 'RUB');
+    }),
+
+    beta: Array.from({ length: 20 }, (_, i) => {
+        const categories: Category[] = ['sedan', 'suv', 'hatchback', 'coupe'];
+        const category = categories[Math.floor(Math.random() * categories.length)];
+        return generateProduct('beta', i + 1, category, 2025, 'USD');
+    })
 };
 
+// Вспомогательная функция для получения всех уникальных категорий
+export function getAllCategories(): Category[] {
+    const allCategories = new Set<Category>();
+    Object.values(PRODUCTS_BY_BRAND).forEach(products => {
+        products.forEach(product => allCategories.add(product.category));
+    });
+    return Array.from(allCategories);
+}
+
+// Вспомогательная функция для получения всех уникальных годов
+export function getAllYears(): number[] {
+    const allYears = new Set<number>();
+    Object.values(PRODUCTS_BY_BRAND).forEach(products => {
+        products.forEach(product => allYears.add(product.year));
+    });
+    return Array.from(allYears).sort((a, b) => b - a); // Сортировка по убыванию
+}
+
+// Вспомогательная функция для форматирования цены
+export function formatPrice(product: Product): string {
+    if (product.currency === 'RUB') {
+        return `${(product.price / 1_000_000).toFixed(1)} млн ₽`;
+    } else {
+        return `$${product.price.toLocaleString()}`;
+    }
+}
