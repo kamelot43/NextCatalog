@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import styles from './CatalogFilters.module.css';
-import type {CatalogQuery, CatalogSort} from "@/shared/helpers/catalogQuery";
+import type {CatalogQuery, CatalogSort} from "@/shared/lib/catalog/catalogQuery";
 
 type Props = {
     categories: string[];
@@ -84,6 +84,7 @@ export default function CatalogFilters({ categories, years, initialQuery }: Prop
         const debounceTimeout = setTimeout(() => {
             const nextParams = new URLSearchParams(baseSearchParams);
             setSearchParam(nextParams, 'q', searchQuery.trim());
+            nextParams.set('page', '1');
             updateUrl(nextParams);
         }, 400);
 
@@ -94,18 +95,21 @@ export default function CatalogFilters({ categories, years, initialQuery }: Prop
     function handleCategoryChange(selectedCategory: string) {
         const nextParams = new URLSearchParams(baseSearchParams);
         setSearchParam(nextParams, 'category', selectedCategory);
+        nextParams.set('page', '1');
         updateUrl(nextParams);
     }
 
     function handleYearChange(selectedYear: string) {
         const nextParams = new URLSearchParams(baseSearchParams);
         setSearchParam(nextParams, 'year', selectedYear);
+        nextParams.set('page', '1');
         updateUrl(nextParams);
     }
 
     function handleSortChange(selectedSort: CatalogSort) {
         const nextParams = new URLSearchParams(baseSearchParams);
         setSearchParam(nextParams, 'sort', selectedSort);
+        nextParams.set('page', '1');
         updateUrl(nextParams);
     }
 
@@ -119,6 +123,7 @@ export default function CatalogFilters({ categories, years, initialQuery }: Prop
         clearedParams.delete('category');
         clearedParams.delete('year');
         clearedParams.delete('sort');
+        clearedParams.delete('page');
 
         updateUrl(clearedParams);
     }

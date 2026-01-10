@@ -3,7 +3,7 @@
 import { Provider } from 'react-redux';
 import { store } from './store';
 import { useEffect } from 'react';
-import { favoritesByBrandStorage, comparisonByBrandStorage} from '@/shared/helpers/storage/persist';
+import { favoritesByBrandStorage, comparisonByBrandStorage} from '@/shared/lib/storage/persist';
 import { hydrateFavorites } from '@/features/favorites/model/favoritesSlice';
 import { hydrateCompare } from '@/features/comparison/model/comparisonSlice';
 
