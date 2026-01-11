@@ -1,19 +1,33 @@
 import Link from 'next/link';
 import styles from './ProductCard.module.css';
-import type { Product } from '@/shared/mock/products';
+import type { Product, Brand } from '@/shared/mock/products';
 import { FavoriteButton } from '@/ui/favorites/FavoriteButton/FavoriteButton';
 import { CompareButton } from '@/ui/comparison/CompareButton/CompareButton';
+import { getProductImageSrc } from '@/shared/lib/products/getProductImageSrc';
+import { ProductImage } from "@/ui/product/ProductImage/ProductImage";
 
 type Props = {
-    brand: string;
+    brand: Brand;
     product: Product;
 };
 
 export function ProductCard({ brand, product }: Props) {
     const href = `/brand/${brand}/product/${product.slug}`;
+    const imageSrc = getProductImageSrc({
+        brand,
+        category: product.category,
+        image: product.image,
+    });
 
     return (
         <article className={styles.card}>
+            <div className={styles.imageWrap}>
+                <ProductImage
+                   src={imageSrc}
+                   alt={product.title}
+                   className={styles.image}
+                />
+            </div>
             <div className={styles.head}>
                 <h3 className={styles.title}>
                     <Link href={href}>{product.title}</Link>

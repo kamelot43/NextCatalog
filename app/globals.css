@@ -4,6 +4,7 @@
   --muted: #6b7280;
   --border: #e5e7eb;
   --accent: #2563eb;
+  --skeleton: rgba(0, 0, 0, 0.08);
 }
 
 [data-brand='alpha'] {

@@ -1,0 +1,142 @@
+.page {
+    display: grid;
+    gap: 16px;
+}
+
+.hero {
+    height: 260px;
+    border-radius: 16px;
+    background: rgba(0, 0, 0, 0.06);
+    position: relative;
+    overflow: hidden;
+}
+
+.top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.title {
+    height: 22px;
+    width: 320px;
+    max-width: 70vw;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.06);
+    position: relative;
+    overflow: hidden;
+}
+
+.meta {
+    margin-top: 10px;
+    height: 14px;
+    width: 220px;
+    max-width: 60vw;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.06);
+    position: relative;
+    overflow: hidden;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+}
+
+.circleBtn {
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.06);
+    position: relative;
+    overflow: hidden;
+}
+
+.price {
+    height: 20px;
+    width: 180px;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.06);
+    position: relative;
+    overflow: hidden;
+}
+
+.specs {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.specItem {
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+    padding: 12px;
+    background: #fff;
+    display: grid;
+    gap: 10px;
+}
+
+.specLabel {
+    height: 12px;
+    width: 40%;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.06);
+    position: relative;
+    overflow: hidden;
+}
+
+.specValue {
+    height: 14px;
+    width: 65%;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.06);
+    position: relative;
+    overflow: hidden;
+}
+
+.back {
+    height: 14px;
+    width: 160px;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.06);
+    position: relative;
+    overflow: hidden;
+}
+
+/* shimmer */
+.hero::after,
+.title::after,
+.meta::after,
+.circleBtn::after,
+.price::after,
+.specLabel::after,
+.specValue::after,
+.back::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.55) 50%,
+            rgba(255, 255, 255, 0) 100%
+    );
+    animation: shimmer 1.2s infinite;
+}
+
+@keyframes shimmer {
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+@media (max-width: 700px) {
+    .hero {
+        height: 180px;
+    }
+    .specs {
+        grid-template-columns: 1fr;
+    }
+}

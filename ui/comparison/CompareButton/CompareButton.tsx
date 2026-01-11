@@ -1,9 +1,15 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import styles from './CompareButton.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import type { RootState, AppDispatch } from '@/shared/store/store';
+import type { AppDispatch } from '@/shared/store/store';
 import { toggleCompare } from '@/features/comparison/model/comparisonSlice';
+import {
+    selectIsProductInComparison,
+    selectIsComparisonLimitReached,
+    selectComparisonMaxLimit
+} from '@/features/comparison/model/comparisonSelectors';
 
 type Props = {
     brand: string;
@@ -12,12 +18,15 @@ type Props = {
 
 export function CompareButton({ productId, brand }: Props) {
     const dispatch = useDispatch<AppDispatch>();
+    const [isHydrated, setIsHydrated] = useState(false);
 
-    const ids = useSelector((s: RootState) => s.comparison.idsByBrand[brand] ?? []);
-    const max = useSelector((s: RootState) => s.comparison.max);
+    useEffect(() => {
+        setIsHydrated(true);
+    }, []);
 
-    const isIn = ids.includes(productId);
-    const isLimitReached = !isIn && ids.length >= max;
+    const max = useSelector(selectComparisonMaxLimit);
+    const isIn = useSelector(selectIsProductInComparison(brand, productId));
+    const isLimitReached = useSelector(selectIsComparisonLimitReached(brand));
 
     const title = isLimitReached
         ? `Limit reached (${max}). Remove one item to add another.`
@@ -25,13 +34,27 @@ export function CompareButton({ productId, brand }: Props) {
             ? 'Remove from comparison'
             : 'Add to comparison';
 
+    if (!isHydrated) {
+        return (
+            <button
+                type="button"
+                className={styles.button}
+                aria-pressed={false}
+                disabled
+                title="Loading..."
+            >
+                Compare
+            </button>
+        );
+    }
+
     return (
         <div className={styles.wrap}>
             <button
                 type="button"
                 className={styles.button}
                 aria-pressed={isIn}
-                disabled={isLimitReached}
+                disabled={!isIn && isLimitReached}
                 title={title}
                 onClick={() => dispatch(toggleCompare({ brand, id: productId }))}
             >

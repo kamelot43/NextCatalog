@@ -5,6 +5,26 @@ import { ProductCard } from '@/ui/product/ProductCard/ProductCard';
 import CatalogFilters from "@/ui/catalog-filters/CatalogFilters";
 import {Pagination} from "@/ui/pagination/Pagination";
 import {getCatalogData} from "@/shared/lib/catalog/catalogService";
+import type {Metadata} from 'next';
+
+function toBrandTitle(brand: string) {
+    return brand ? brand[0].toUpperCase() + brand.slice(1) : 'Brand';
+}
+
+export async function generateMetadata({
+    params,
+}: {
+    params: Promise<{ brand: string }>;
+}): Promise<Metadata> {
+
+    const {brand} = await params;
+    const brandTitle = toBrandTitle(brand);
+
+    return {
+        title: `${brandTitle} • Catalog`,
+        description: `Browse ${brandTitle} cars. Filter by category, year, search and sort options.`,
+    };
+}
 
 type PageProps = {
     params: Promise<{ brand: string }>;
@@ -35,15 +55,10 @@ export default async function CatalogPage({ params, searchParams}: PageProps) {
 
             <div className={styles.content}>
                 <div className={styles.headerRow}>
-                    <h1 className={styles.title}>{brand.toUpperCase()} Catalog</h1>
+                    <h1 className={styles.title}>Catalog</h1>
 
                     <p className={styles.results}>
                         Found: <b>{paginated.total}</b> cars
-                        {paginated.totalPages > 1 && (
-                            <span className={styles.results}>
-                                • Page {paginated.currentPage} of {paginated.totalPages}
-                            </span>
-                        )}
                     </p>
                 </div>
 

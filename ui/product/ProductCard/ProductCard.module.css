@@ -7,6 +7,18 @@
     gap: 10px;
 }
 
+.imageWrap {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.image {
+  object-fit: cover;
+}
+
 .head {
     display: flex;
     align-items: flex-start;

@@ -21,6 +21,18 @@
     font-size: 28px;
 }
 
+.hero {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.06);
+    height: 260px;
+}
+
+.heroImg {
+    object-fit: cover;
+}
+
 .meta {
     display: flex;
     align-items: center;
@@ -65,6 +77,10 @@
 }
 
 @media (max-width: 700px) {
+    .hero {
+        height: 180px;
+    }
+
     .specs {
         grid-template-columns: 1fr;
     }
