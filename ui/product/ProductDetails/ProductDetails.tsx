@@ -24,8 +24,8 @@ export function ProductDetails({ brand, product }: Props) {
                 </div>
 
                 <div className={styles.actions}>
-                    {/*<CompareButton brand={brand} productId={product.id} />*/}
-                    {/*<FavoriteButton brand={brand} productId={product.id} />*/}
+                    <CompareButton brand={brand} productId={product.id} />
+                    <FavoriteButton brand={brand} productId={product.id} />
                 </div>
             </div>
 

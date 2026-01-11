@@ -19,7 +19,7 @@ export function FavoriteButton({ brand, productId }: Props) {
         <button
             type="button"
             className={styles.button}
-            // aria-pressed={isIn}
+            aria-pressed={isIn}
             onClick={() => dispatch(toggleFavorite({ brand, id: productId }))}
             title={isIn ? 'Remove from favorites' : 'Add to favorites'}
         >
