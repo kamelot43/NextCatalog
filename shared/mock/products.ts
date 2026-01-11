@@ -21,73 +21,612 @@ export type Product = {
     };
 };
 
-// Генератор случайных данных
-function generateProduct(
-    brand: Brand,
-    id: number,
-    category: Category,
-    baseYear: number,
-    currency: Currency
-): Product {
-    const basePrice = currency === 'RUB'
-        ? Math.floor(Math.random() * 3_000_000) + 1_500_000
-        : Math.floor(Math.random() * 35_000) + 18_000;
-
-    const year = baseYear - Math.floor(Math.random() * 3); // 2023-2025
-    const modelNames = {
-        sedan: ['Classic', 'Premium', 'Executive', 'Luxury', 'Sport'],
-        suv: ['Explorer', 'Adventure', 'Trail', 'Urban', 'X-Treme'],
-        hatchback: ['City', 'Compact', 'Urban', 'Style', 'Active'],
-        coupe: ['GT', 'Sport', 'Turbo', 'Racing', 'Coupe']
-    };
-
-    const transmission: Transmission = Math.random() > 0.3 ? 'AT' : 'MT';
-    const drives: Drive[] = ['FWD', 'RWD', 'AWD'];
-    const drive = drives[Math.floor(Math.random() * drives.length)];
-
-    const powerRange = {
-        sedan: { min: 140, max: 250 },
-        suv: { min: 180, max: 300 },
-        hatchback: { min: 100, max: 180 },
-        coupe: { min: 200, max: 350 }
-    };
-
-    const powerHp = Math.floor(
-        Math.random() * (powerRange[category].max - powerRange[category].min + 1)
-    ) + powerRange[category].min;
-
-    const name = modelNames[category][Math.floor(Math.random() * modelNames[category].length)];
-
-    return {
-        id: `${brand[0]}-${id.toString().padStart(3, '0')}`,
-        brand,
-        slug: `${brand}-${category}-${name.toLowerCase().replace(' ', '-')}-${id}`,
-        title: `${brand.charAt(0).toUpperCase() + brand.slice(1)} ${category.charAt(0).toUpperCase() + category.slice(1)} ${name}`,
-        price: Math.round(basePrice / 1000) * 1000, // Округляем до тысяч
-        currency,
-        year,
-        category,
-        specs: {
-            powerHp,
-            transmission,
-            drive
-        }
-    };
-}
-
-// Генерация 20 автомобилей для каждого бренда
 export const PRODUCTS_BY_BRAND: Record<Brand, Product[]> = {
-    alpha: Array.from({ length: 20 }, (_, i) => {
-        const categories: Category[] = ['sedan', 'suv', 'hatchback', 'coupe'];
-        const category = categories[Math.floor(Math.random() * categories.length)];
-        return generateProduct('alpha', i + 1, category, 2025, 'RUB');
-    }),
+    alpha: [
+        {
+            "id": "a-001",
+            "brand": "alpha",
+            "slug": "alpha-suv-urban-1",
+            "title": "Alpha Suv Urban",
+            "price": 2368000,
+            "currency": "RUB",
+            "year": 2023,
+            "category": "suv",
+            "specs": {
+                "powerHp": 265,
+                "transmission": "MT",
+                "drive": "RWD"
+            }
+        },
+        {
+            "id": "a-002",
+            "brand": "alpha",
+            "slug": "alpha-hatchback-active-2",
+            "title": "Alpha Hatchback Active",
+            "price": 3968000,
+            "currency": "RUB",
+            "year": 2024,
+            "category": "hatchback",
+            "specs": {
+                "powerHp": 117,
+                "transmission": "MT",
+                "drive": "AWD"
+            }
+        },
+        {
+            "id": "a-003",
+            "brand": "alpha",
+            "slug": "alpha-sedan-premium-3",
+            "title": "Alpha Sedan Premium",
+            "price": 3370000,
+            "currency": "RUB",
+            "year": 2025,
+            "category": "sedan",
+            "specs": {
+                "powerHp": 208,
+                "transmission": "AT",
+                "drive": "FWD"
+            }
+        },
+        {
+            "id": "a-004",
+            "brand": "alpha",
+            "slug": "alpha-coupe-gt-4",
+            "title": "Alpha Coupe GT",
+            "price": 3346000,
+            "currency": "RUB",
+            "year": 2023,
+            "category": "coupe",
+            "specs": {
+                "powerHp": 244,
+                "transmission": "AT",
+                "drive": "FWD"
+            }
+        },
+        {
+            "id": "a-005",
+            "brand": "alpha",
+            "slug": "alpha-hatchback-city-5",
+            "title": "Alpha Hatchback City",
+            "price": 4240000,
+            "currency": "RUB",
+            "year": 2023,
+            "category": "hatchback",
+            "specs": {
+                "powerHp": 174,
+                "transmission": "AT",
+                "drive": "FWD"
+            }
+        },
+        {
+            "id": "a-006",
+            "brand": "alpha",
+            "slug": "alpha-hatchback-urban-6",
+            "title": "Alpha Hatchback Urban",
+            "price": 4298000,
+            "currency": "RUB",
+            "year": 2025,
+            "category": "hatchback",
+            "specs": {
+                "powerHp": 154,
+                "transmission": "MT",
+                "drive": "RWD"
+            }
+        },
+        {
+            "id": "a-007",
+            "brand": "alpha",
+            "slug": "alpha-sedan-luxury-7",
+            "title": "Alpha Sedan Luxury",
+            "price": 3144000,
+            "currency": "RUB",
+            "year": 2025,
+            "category": "sedan",
+            "specs": {
+                "powerHp": 211,
+                "transmission": "MT",
+                "drive": "FWD"
+            }
+        },
+        {
+            "id": "a-008",
+            "brand": "alpha",
+            "slug": "alpha-coupe-gt-8",
+            "title": "Alpha Coupe GT",
+            "price": 4019000,
+            "currency": "RUB",
+            "year": 2024,
+            "category": "coupe",
+            "specs": {
+                "powerHp": 316,
+                "transmission": "AT",
+                "drive": "RWD"
+            }
+        },
+        {
+            "id": "a-009",
+            "brand": "alpha",
+            "slug": "alpha-sedan-sport-9",
+            "title": "Alpha Sedan Sport",
+            "price": 3181000,
+            "currency": "RUB",
+            "year": 2025,
+            "category": "sedan",
+            "specs": {
+                "powerHp": 230,
+                "transmission": "AT",
+                "drive": "AWD"
+            }
+        },
+        {
+            "id": "a-010",
+            "brand": "alpha",
+            "slug": "alpha-suv-explorer-10",
+            "title": "Alpha Suv Explorer",
+            "price": 1776000,
+            "currency": "RUB",
+            "year": 2025,
+            "category": "suv",
+            "specs": {
+                "powerHp": 293,
+                "transmission": "AT",
+                "drive": "FWD"
+            }
+        },
+        {
+            "id": "a-011",
+            "brand": "alpha",
+            "slug": "alpha-suv-explorer-11",
+            "title": "Alpha Suv Explorer",
+            "price": 1826000,
+            "currency": "RUB",
+            "year": 2024,
+            "category": "suv",
+            "specs": {
+                "powerHp": 222,
+                "transmission": "AT",
+                "drive": "FWD"
+            }
+        },
+        {
+            "id": "a-012",
+            "brand": "alpha",
+            "slug": "alpha-sedan-classic-12",
+            "title": "Alpha Sedan Classic",
+            "price": 4447000,
+            "currency": "RUB",
+            "year": 2023,
+            "category": "sedan",
+            "specs": {
+                "powerHp": 187,
+                "transmission": "AT",
+                "drive": "RWD"
+            }
+        },
+        {
+            "id": "a-013",
+            "brand": "alpha",
+            "slug": "alpha-suv-urban-13",
+            "title": "Alpha Suv Urban",
+            "price": 3637000,
+            "currency": "RUB",
+            "year": 2023,
+            "category": "suv",
+            "specs": {
+                "powerHp": 222,
+                "transmission": "AT",
+                "drive": "AWD"
+            }
+        },
+        {
+            "id": "a-014",
+            "brand": "alpha",
+            "slug": "alpha-coupe-sport-14",
+            "title": "Alpha Coupe Sport",
+            "price": 2077000,
+            "currency": "RUB",
+            "year": 2025,
+            "category": "coupe",
+            "specs": {
+                "powerHp": 350,
+                "transmission": "MT",
+                "drive": "FWD"
+            }
+        },
+        {
+            "id": "a-015",
+            "brand": "alpha",
+            "slug": "alpha-coupe-racing-15",
+            "title": "Alpha Coupe Racing",
+            "price": 3322000,
+            "currency": "RUB",
+            "year": 2024,
+            "category": "coupe",
+            "specs": {
+                "powerHp": 268,
+                "transmission": "AT",
+                "drive": "RWD"
+            }
+        },
+        {
+            "id": "a-016",
+            "brand": "alpha",
+            "slug": "alpha-hatchback-active-16",
+            "title": "Alpha Hatchback Active",
+            "price": 3666000,
+            "currency": "RUB",
+            "year": 2023,
+            "category": "hatchback",
+            "specs": {
+                "powerHp": 138,
+                "transmission": "AT",
+                "drive": "AWD"
+            }
+        },
+        {
+            "id": "a-017",
+            "brand": "alpha",
+            "slug": "alpha-sedan-premium-17",
+            "title": "Alpha Sedan Premium",
+            "price": 1763000,
+            "currency": "RUB",
+            "year": 2023,
+            "category": "sedan",
+            "specs": {
+                "powerHp": 169,
+                "transmission": "MT",
+                "drive": "FWD"
+            }
+        },
+        {
+            "id": "a-018",
+            "brand": "alpha",
+            "slug": "alpha-suv-explorer-18",
+            "title": "Alpha Suv Explorer",
+            "price": 3256000,
+            "currency": "RUB",
+            "year": 2024,
+            "category": "suv",
+            "specs": {
+                "powerHp": 197,
+                "transmission": "AT",
+                "drive": "RWD"
+            }
+        },
+        {
+            "id": "a-019",
+            "brand": "alpha",
+            "slug": "alpha-sedan-classic-19",
+            "title": "Alpha Sedan Classic",
+            "price": 2324000,
+            "currency": "RUB",
+            "year": 2024,
+            "category": "sedan",
+            "specs": {
+                "powerHp": 162,
+                "transmission": "MT",
+                "drive": "FWD"
+            }
+        },
+        {
+            "id": "a-020",
+            "brand": "alpha",
+            "slug": "alpha-hatchback-city-20",
+            "title": "Alpha Hatchback City",
+            "price": 1523000,
+            "currency": "RUB",
+            "year": 2023,
+            "category": "hatchback",
+            "specs": {
+                "powerHp": 138,
+                "transmission": "MT",
+                "drive": "RWD"
+            }
+        }
+    ],
 
-    beta: Array.from({ length: 20 }, (_, i) => {
-        const categories: Category[] = ['sedan', 'suv', 'hatchback', 'coupe'];
-        const category = categories[Math.floor(Math.random() * categories.length)];
-        return generateProduct('beta', i + 1, category, 2025, 'USD');
-    })
+    beta: [
+        {
+            "id": "b-001",
+            "brand": "beta",
+            "slug": "beta-coupe-turbo-1",
+            "title": "Beta Coupe Turbo",
+            "price": 36000,
+            "currency": "USD",
+            "year": 2025,
+            "category": "coupe",
+            "specs": {
+                "powerHp": 264,
+                "transmission": "AT",
+                "drive": "AWD"
+            }
+        },
+        {
+            "id": "b-002",
+            "brand": "beta",
+            "slug": "beta-hatchback-urban-2",
+            "title": "Beta Hatchback Urban",
+            "price": 53000,
+            "currency": "USD",
+            "year": 2023,
+            "category": "hatchback",
+            "specs": {
+                "powerHp": 156,
+                "transmission": "AT",
+                "drive": "RWD"
+            }
+        },
+        {
+            "id": "b-003",
+            "brand": "beta",
+            "slug": "beta-sedan-classic-3",
+            "title": "Beta Sedan Classic",
+            "price": 29000,
+            "currency": "USD",
+            "year": 2024,
+            "category": "sedan",
+            "specs": {
+                "powerHp": 213,
+                "transmission": "MT",
+                "drive": "FWD"
+            }
+        },
+        {
+            "id": "b-004",
+            "brand": "beta",
+            "slug": "beta-hatchback-active-4",
+            "title": "Beta Hatchback Active",
+            "price": 43000,
+            "currency": "USD",
+            "year": 2023,
+            "category": "hatchback",
+            "specs": {
+                "powerHp": 167,
+                "transmission": "AT",
+                "drive": "RWD"
+            }
+        },
+        {
+            "id": "b-005",
+            "brand": "beta",
+            "slug": "beta-sedan-premium-5",
+            "title": "Beta Sedan Premium",
+            "price": 49000,
+            "currency": "USD",
+            "year": 2023,
+            "category": "sedan",
+            "specs": {
+                "powerHp": 151,
+                "transmission": "MT",
+                "drive": "RWD"
+            }
+        },
+        {
+            "id": "b-006",
+            "brand": "beta",
+            "slug": "beta-coupe-racing-6",
+            "title": "Beta Coupe Racing",
+            "price": 51000,
+            "currency": "USD",
+            "year": 2025,
+            "category": "coupe",
+            "specs": {
+                "powerHp": 260,
+                "transmission": "AT",
+                "drive": "AWD"
+            }
+        },
+        {
+            "id": "b-007",
+            "brand": "beta",
+            "slug": "beta-suv-explorer-7",
+            "title": "Beta Suv Explorer",
+            "price": 40000,
+            "currency": "USD",
+            "year": 2025,
+            "category": "suv",
+            "specs": {
+                "powerHp": 293,
+                "transmission": "AT",
+                "drive": "RWD"
+            }
+        },
+        {
+            "id": "b-008",
+            "brand": "beta",
+            "slug": "beta-suv-adventure-8",
+            "title": "Beta Suv Adventure",
+            "price": 28000,
+            "currency": "USD",
+            "year": 2024,
+            "category": "suv",
+            "specs": {
+                "powerHp": 270,
+                "transmission": "AT",
+                "drive": "RWD"
+            }
+        },
+        {
+            "id": "b-009",
+            "brand": "beta",
+            "slug": "beta-sedan-luxury-9",
+            "title": "Beta Sedan Luxury",
+            "price": 53000,
+            "currency": "USD",
+            "year": 2025,
+            "category": "sedan",
+            "specs": {
+                "powerHp": 246,
+                "transmission": "AT",
+                "drive": "AWD"
+            }
+        },
+        {
+            "id": "b-010",
+            "brand": "beta",
+            "slug": "beta-coupe-sport-10",
+            "title": "Beta Coupe Sport",
+            "price": 37000,
+            "currency": "USD",
+            "year": 2025,
+            "category": "coupe",
+            "specs": {
+                "powerHp": 236,
+                "transmission": "MT",
+                "drive": "RWD"
+            }
+        },
+        {
+            "id": "b-011",
+            "brand": "beta",
+            "slug": "beta-hatchback-style-11",
+            "title": "Beta Hatchback Style",
+            "price": 52000,
+            "currency": "USD",
+            "year": 2025,
+            "category": "hatchback",
+            "specs": {
+                "powerHp": 158,
+                "transmission": "AT",
+                "drive": "FWD"
+            }
+        },
+        {
+            "id": "b-012",
+            "brand": "beta",
+            "slug": "beta-sedan-sport-12",
+            "title": "Beta Sedan Sport",
+            "price": 42000,
+            "currency": "USD",
+            "year": 2025,
+            "category": "sedan",
+            "specs": {
+                "powerHp": 193,
+                "transmission": "AT",
+                "drive": "AWD"
+            }
+        },
+        {
+            "id": "b-013",
+            "brand": "beta",
+            "slug": "beta-hatchback-active-13",
+            "title": "Beta Hatchback Active",
+            "price": 44000,
+            "currency": "USD",
+            "year": 2024,
+            "category": "hatchback",
+            "specs": {
+                "powerHp": 180,
+                "transmission": "AT",
+                "drive": "FWD"
+            }
+        },
+        {
+            "id": "b-014",
+            "brand": "beta",
+            "slug": "beta-coupe-turbo-14",
+            "title": "Beta Coupe Turbo",
+            "price": 34000,
+            "currency": "USD",
+            "year": 2023,
+            "category": "coupe",
+            "specs": {
+                "powerHp": 303,
+                "transmission": "AT",
+                "drive": "AWD"
+            }
+        },
+        {
+            "id": "b-015",
+            "brand": "beta",
+            "slug": "beta-coupe-turbo-15",
+            "title": "Beta Coupe Turbo",
+            "price": 53000,
+            "currency": "USD",
+            "year": 2023,
+            "category": "coupe",
+            "specs": {
+                "powerHp": 290,
+                "transmission": "MT",
+                "drive": "RWD"
+            }
+        },
+        {
+            "id": "b-016",
+            "brand": "beta",
+            "slug": "beta-hatchback-active-16",
+            "title": "Beta Hatchback Active",
+            "price": 36000,
+            "currency": "USD",
+            "year": 2023,
+            "category": "hatchback",
+            "specs": {
+                "powerHp": 160,
+                "transmission": "AT",
+                "drive": "RWD"
+            }
+        },
+        {
+            "id": "b-017",
+            "brand": "beta",
+            "slug": "beta-sedan-sport-17",
+            "title": "Beta Sedan Sport",
+            "price": 46000,
+            "currency": "USD",
+            "year": 2023,
+            "category": "sedan",
+            "specs": {
+                "powerHp": 204,
+                "transmission": "MT",
+                "drive": "FWD"
+            }
+        },
+        {
+            "id": "b-018",
+            "brand": "beta",
+            "slug": "beta-hatchback-city-18",
+            "title": "Beta Hatchback City",
+            "price": 37000,
+            "currency": "USD",
+            "year": 2023,
+            "category": "hatchback",
+            "specs": {
+                "powerHp": 109,
+                "transmission": "AT",
+                "drive": "FWD"
+            }
+        },
+        {
+            "id": "b-019",
+            "brand": "beta",
+            "slug": "beta-sedan-sport-19",
+            "title": "Beta Sedan Sport",
+            "price": 24000,
+            "currency": "USD",
+            "year": 2023,
+            "category": "sedan",
+            "specs": {
+                "powerHp": 149,
+                "transmission": "MT",
+                "drive": "RWD"
+            }
+        },
+        {
+            "id": "b-020",
+            "brand": "beta",
+            "slug": "beta-hatchback-active-20",
+            "title": "Beta Hatchback Active",
+            "price": 20000,
+            "currency": "USD",
+            "year": 2024,
+            "category": "hatchback",
+            "specs": {
+                "powerHp": 141,
+                "transmission": "AT",
+                "drive": "RWD"
+            }
+        }
+    ]
 };
 
 // Вспомогательная функция для получения всех уникальных категорий

@@ -19,8 +19,8 @@ export function ProductCard({ brand, product }: Props) {
                     <Link href={href}>{product.title}</Link>
                 </h3>
                 <div className={styles.actions}>
-                    <CompareButton brand={brand} productId={product.id} />
-                    <FavoriteButton brand={brand} productId={product.id} />
+                    {/*<CompareButton brand={brand} productId={product.id} />*/}
+                    {/*<FavoriteButton brand={brand} productId={product.id} />*/}
                 </div>
             </div>
 

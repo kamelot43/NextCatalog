@@ -30,7 +30,7 @@ export function CompareButton({ productId, brand }: Props) {
             <button
                 type="button"
                 className={styles.button}
-                aria-pressed={isIn}
+                // aria-pressed={isIn}
                 disabled={isLimitReached}
                 title={title}
                 onClick={() => dispatch(toggleCompare({ brand, id: productId }))}

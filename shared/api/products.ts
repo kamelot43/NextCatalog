@@ -1,3 +1,5 @@
+import { notFound } from 'next/navigation';
+import { isBrand } from '@/shared/config/brands';
 import { PRODUCTS_BY_BRAND, type Product } from '@/shared/mock/products';
 
 function delay(ms: number) {
@@ -6,8 +8,9 @@ function delay(ms: number) {
 
 export async function getProducts(brand: string): Promise<Product[]> {
     await delay(150);
+    if (!isBrand(brand)) notFound();
 
-    return PRODUCTS_BY_BRAND[brand] ?? [];
+    return PRODUCTS_BY_BRAND[brand];
 }
 
 export async function getProductBySlug(
@@ -15,9 +18,11 @@ export async function getProductBySlug(
     slug: string
 ): Promise<Product | null> {
     await delay(150);
+    if (!isBrand(brand)) notFound();
 
-    const products = PRODUCTS_BY_BRAND[brand] ?? [];
-    return products.find((p) => p.slug === slug) ?? null;
+    const product = PRODUCTS_BY_BRAND[brand].find((p) => p.slug === slug);
+    if (!product) notFound();
+    return product;
 }
 
 export async function getProductById(
@@ -25,7 +30,9 @@ export async function getProductById(
     id: string
 ): Promise<Product | null> {
     await delay(50);
+    if (!isBrand(brand)) notFound();
 
-    const products = PRODUCTS_BY_BRAND[brand] ?? [];
-    return products.find((p) => p.id === id) ?? null;
+    const product = PRODUCTS_BY_BRAND[brand].find((p) => p.id === id);
+    if (!product) notFound();
+    return product;
 }

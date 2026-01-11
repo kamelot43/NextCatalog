@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import styles from './CatalogFilters.module.css';
 import type {CatalogQuery, CatalogSort} from "@/shared/lib/catalog/catalogQuery";
@@ -32,14 +32,19 @@ export default function CatalogFilters({ categories, years, initialQuery }: Prop
     const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams();
+    const searchParamsRef = useRef(searchParams.toString());
 
     // Локальное состояние для поискового запроса (для debounce)
     const [searchQuery, setSearchQuery] = useState(initialQuery.q);
 
+    useEffect(() => {
+          searchParamsRef.current = searchParams.toString();
+    }, [searchParams]);
+
     // Синхронизация локального состояния поиска с URL при навигации
     useEffect(() => {
         const searchQueryFromUrl = searchParams.get('q') ?? '';
-        setSearchQuery(searchQueryFromUrl);
+        setSearchQuery((prev) => (prev === searchQueryFromUrl ? prev : searchQueryFromUrl));
     }, [searchParams]);
 
     // Текущие значения из URL или начальные значения
@@ -59,55 +64,59 @@ export default function CatalogFilters({ categories, years, initialQuery }: Prop
             : null,
     ].filter(Boolean);
 
-    console.log('chips', activeChips);
-
-    // Базовые параметры для новых URL (сохраняем неизвестные параметры)
-    const baseSearchParams = useMemo(() => {
-        return new URLSearchParams(searchParams.toString());
-    }, [searchParams]);
-
     // Функция для обновления URL
     function updateUrl(newParams: URLSearchParams) {
         const queryString = newParams.toString();
         const newUrl = queryString ? `${pathname}?${queryString}` : pathname;
-        router.push(newUrl);
+        const currentQueryString = searchParams.toString();
+        const currentUrl = currentQueryString ? `${pathname}?${currentQueryString}` : pathname;
+        if (newUrl !== currentUrl) {
+            router.push(newUrl);
+        }
     }
 
     function removeParam(key: 'q' | 'category' | 'year' | 'sort') {
-        const nextParams = new URLSearchParams(baseSearchParams);
+        const nextParams = new URLSearchParams(searchParams.toString());
         nextParams.delete(key);
+        nextParams.set('page', '1');
         updateUrl(nextParams);
     }
 
     // Debounce для поискового запроса
     useEffect(() => {
-        const debounceTimeout = setTimeout(() => {
-            const nextParams = new URLSearchParams(baseSearchParams);
-            setSearchParam(nextParams, 'q', searchQuery.trim());
-            nextParams.set('page', '1');
-            updateUrl(nextParams);
+          const debounceTimeout = setTimeout(() => {
+          const currentParams = new URLSearchParams(searchParamsRef.current);
+          const urlQ = currentParams.get('q') ?? '';
+          const nextQ = searchQuery.trim();
+
+          if (nextQ === urlQ) return;
+
+          const nextParams = new URLSearchParams(searchParamsRef.current);
+          setSearchParam(nextParams, 'q', nextQ);
+          nextParams.set('page', '1');
+          updateUrl(nextParams);
         }, 400);
 
         return () => clearTimeout(debounceTimeout);
-    }, [searchQuery]);
+    }, [searchQuery, pathname]);
 
     // Обработчики изменений фильтров
     function handleCategoryChange(selectedCategory: string) {
-        const nextParams = new URLSearchParams(baseSearchParams);
+        const nextParams = new URLSearchParams(searchParams.toString());
         setSearchParam(nextParams, 'category', selectedCategory);
         nextParams.set('page', '1');
         updateUrl(nextParams);
     }
 
     function handleYearChange(selectedYear: string) {
-        const nextParams = new URLSearchParams(baseSearchParams);
+        const nextParams = new URLSearchParams(searchParams.toString());
         setSearchParam(nextParams, 'year', selectedYear);
         nextParams.set('page', '1');
         updateUrl(nextParams);
     }
 
     function handleSortChange(selectedSort: CatalogSort) {
-        const nextParams = new URLSearchParams(baseSearchParams);
+        const nextParams = new URLSearchParams(searchParams.toString());
         setSearchParam(nextParams, 'sort', selectedSort);
         nextParams.set('page', '1');
         updateUrl(nextParams);
@@ -118,7 +127,7 @@ export default function CatalogFilters({ categories, years, initialQuery }: Prop
         setSearchQuery('');
 
         // Создаем новые параметры и удаляем все фильтры
-        const clearedParams = new URLSearchParams(baseSearchParams);
+        const clearedParams = new URLSearchParams(searchParams.toString());
         clearedParams.delete('q');
         clearedParams.delete('category');
         clearedParams.delete('year');
