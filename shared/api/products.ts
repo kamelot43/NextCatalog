@@ -16,7 +16,7 @@ export async function getProducts(brand: string): Promise<Product[]> {
 export async function getProductBySlug(
     brand: string,
     slug: string
-): Promise<Product | null> {
+): Promise<Product> {
     await delay(150);
     if (!isBrand(brand)) notFound();
 
@@ -28,7 +28,7 @@ export async function getProductBySlug(
 export async function getProductById(
     brand: string,
     id: string
-): Promise<Product | null> {
+): Promise<Product> {
     await delay(50);
     if (!isBrand(brand)) notFound();
 

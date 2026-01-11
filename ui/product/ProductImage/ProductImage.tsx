@@ -26,18 +26,16 @@ export function ProductImage({
 }: Props) {
     const fallback = '/images/placeholder.jpg';
     const [currentSrc, setCurrentSrc] = useState(src || fallback);
-    const [hasError, setHasError] = useState(false);
 
     useEffect(() => {
-        setHasError(false);
+        setCurrentSrc(src || fallback);
     }, [src]);
 
-    const finalSrc = hasError ? fallback : (src || fallback);
 
     return (
         <Image
             className={className}
-            src={finalSrc}
+            src={currentSrc}
             alt={alt}
             fill={fill}
             width={fill ? undefined : width}
@@ -45,7 +43,6 @@ export function ProductImage({
             sizes="(max-width: 560px) 100vw, (max-width: 1100px) 50vw, 33vw"
             placeholder="blur"
             blurDataURL={BLUR_DATA_URL}
-            priority={priority}
             onError={() => {
                 setCurrentSrc(fallback);
             }}

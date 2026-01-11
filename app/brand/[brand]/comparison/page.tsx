@@ -17,7 +17,7 @@ export async function generateMetadata({
     const brandTitle = toBrandTitle(brand);
 
     return {
-        title: `${brandTitle} • Favorites`,
+        title: `${brandTitle} • Comparison`,
         description: `Compare ${brandTitle} cars side-by-side: price, year, power and specs.`,
     };
 }
