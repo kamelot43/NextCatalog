@@ -5,6 +5,7 @@ import { FavoriteButton } from '@/ui/favorites/FavoriteButton/FavoriteButton';
 import { CompareButton } from '@/ui/comparison/CompareButton/CompareButton';
 import { getProductImageSrc } from '@/shared/lib/products/getProductImageSrc';
 import { ProductImage } from "@/ui/product/ProductImage/ProductImage";
+import { PriceText } from '@/ui/product/PriceText/PriceText';
 
 type Props = {
     brand: Brand;
@@ -45,7 +46,7 @@ export function ProductDetails({ brand, product }: Props) {
             </div>
 
             <div className={styles.price}>
-                {product.price.toLocaleString('ru-RU')} {product.currency}
+                <PriceText priceRub={product.price} />
             </div>
 
             <div className={styles.specs}>

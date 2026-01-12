@@ -3,6 +3,7 @@ import { parseCatalogQuery } from '@/shared/lib/catalog/catalogQuery';
 import { ProductCard } from '@/ui/product/ProductCard/ProductCard';
 import CatalogFilters from '@/ui/catalog-filters/CatalogFilters';
 import { Pagination } from '@/ui/pagination/Pagination';
+import { getPreferences } from '@/server/actions/account';
 import type { Metadata } from 'next';
 
 import { notFound } from 'next/navigation';
@@ -13,7 +14,7 @@ function toBrandTitle(brand: string) {
     return brand ? brand[0].toUpperCase() + brand.slice(1) : 'Brand';
 }
 
-export const revalidate = 60;
+export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({
     params,
@@ -43,15 +44,25 @@ export default async function CatalogPage({ params, searchParams}: PageProps) {
 
     const rawSearchParams = await searchParams;
 
+    const prefs = await getPreferences();
+
     const query = parseCatalogQuery(rawSearchParams);
 
+    const effectiveQuery = {
+        ...query,
+        // если в URL не передали sort — возьмём из prefs
+        sort: query.sort ?? prefs.catalog.sort,
+        // если в URL не передали limit — возьмём из prefs
+        limit: query.limit ?? prefs.catalog.limit,
+    };
+
     const data = getProductsServer(brand, {
-        q: query.q,
-        category: query.category,
-        year: query.year,
-        sort: query.sort,
-        page: query.page,
-        limit: query.limit,
+        q: effectiveQuery.q,
+        category: effectiveQuery.category,
+        year: effectiveQuery.year,
+        sort: effectiveQuery.sort,
+        page: effectiveQuery.page,
+        limit: effectiveQuery.limit,
     });
 
     if (!data) return notFound();
@@ -62,7 +73,7 @@ export default async function CatalogPage({ params, searchParams}: PageProps) {
     return (
         <section className={styles.page}>
             <aside className={styles.sidebar}>
-                <CatalogFilters categories={data.categories} years={data.years} initialQuery={query} />
+                <CatalogFilters categories={data.categories} years={data.years} initialQuery={effectiveQuery} />
             </aside>
 
             <div className={styles.content}>

@@ -50,7 +50,8 @@ export default function CatalogFilters({ categories, years, initialQuery }: Prop
     // Текущие значения из URL или начальные значения
     const currentCategory = searchParams.get('category') ?? initialQuery.category ?? '';
     const currentYear = searchParams.get('year') ?? (initialQuery.year ? String(initialQuery.year) : '');
-    const currentSort = (searchParams.get('sort') as CatalogSort) ?? initialQuery.sort;
+    const urlSort = searchParams.get('sort') as CatalogSort | null;
+    const effectiveSort = (urlSort ?? initialQuery.sort ?? 'year-desc') as CatalogSort;
 
     const activeChips = [
         currentCategory
@@ -59,8 +60,8 @@ export default function CatalogFilters({ categories, years, initialQuery }: Prop
         currentYear
             ? { key: 'year', label: `year: ${currentYear}` }
             : null,
-        currentSort && currentSort !== 'year-desc'
-            ? { key: 'sort', label: `sort: ${currentSort}` }
+        urlSort && urlSort !== 'year-desc'
+            ? { key: 'sort', label: `sort: ${urlSort}` }
             : null,
     ].filter(Boolean);
 
@@ -187,7 +188,7 @@ export default function CatalogFilters({ categories, years, initialQuery }: Prop
                 <span className={styles.label}>Сортировка</span>
                 <select
                     className={styles.select}
-                    value={currentSort}
+                    value={effectiveSort}
                     onChange={(e) => handleSortChange(e.target.value as CatalogSort)}
                 >
                     {SORT_OPTIONS.map((o) => (

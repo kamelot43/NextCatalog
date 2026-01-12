@@ -67,9 +67,10 @@ export function AccountPreferencesForm({
                 <label className={styles.field}>
                     <span className={styles.label}>Catalog: default sort</span>
                     <select className={styles.select} name="catalogSort" defaultValue={initialPrefs.catalog.sort}>
-                        <option value="year_desc">Year (new → old)</option>
-                        <option value="price_asc">Price (low → high)</option>
-                        <option value="price_desc">Price (high → low)</option>
+                        <option value="year-desc">Year (new → old)</option>
+                        <option value="price-asc">Price (low → high)</option>
+                        <option value="price-desc">Price (high → low)</option>
+                        <option value="power-desc">Power (high → low)</option>
                     </select>
                 </label>
             </div>

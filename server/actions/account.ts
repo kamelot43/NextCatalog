@@ -13,12 +13,14 @@ export type Profile = {
     updatedAt: number;
 };
 
+type CatalogSort = 'price-asc' | 'price-desc' | 'power-desc' | 'year-desc';
+
 export type Preferences = {
     locale: 'ru-RU' | 'en-US';
     currency: 'RUB' | 'USD' | 'EUR';
     catalog: {
         limit: 6 | 12 | 24;
-        sort: 'price_asc' | 'price_desc' | 'year_desc';
+        sort: CatalogSort
     };
 };
 
@@ -32,7 +34,7 @@ const defaultPrefs: Preferences = {
     currency: 'RUB',
     catalog: {
         limit: 6,
-        sort: 'year_desc',
+        sort: 'year-desc',
     },
 };
 
@@ -74,12 +76,18 @@ function normalizePrefs(raw: Partial<Preferences>): Preferences {
     const rawCatalog = (raw as any).catalog ?? {};
     const limit = rawCatalog.limit === 12 ? 12 : rawCatalog.limit === 24 ? 24 : 6;
 
-    const sort =
-        rawCatalog.sort === 'price_asc'
-            ? 'price_asc'
-            : rawCatalog.sort === 'price_desc'
-                ? 'price_desc'
-                : 'year_desc';
+    let sort: CatalogSort;
+
+    switch (rawCatalog.sort) {
+        case 'price-asc':
+        case 'price-desc':
+        case 'power-desc':
+        case 'year-desc':
+            sort = rawCatalog.sort;
+            break;
+        default:
+            sort = 'year-desc';
+    }
 
     return {
         locale,
@@ -106,9 +114,10 @@ function clampCurrency(v: string | null): Preferences['currency'] {
 }
 
 function clampSort(v: string | null): Preferences['catalog']['sort'] {
-    if (v === 'price_asc') return 'price_asc';
-    if (v === 'price_desc') return 'price_desc';
-    return 'year_desc';
+    if (v === 'price-asc') return 'price-asc';
+    if (v === 'price-desc') return 'price-desc';
+    if (v === ' power-desc') return 'power-desc';
+    return 'year-desc';
 }
 
 export async function updateProfileAction(brand: string, formData: FormData) {

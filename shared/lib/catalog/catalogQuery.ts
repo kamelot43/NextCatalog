@@ -6,9 +6,9 @@ export type CatalogQuery = {
     q: string;
     category?: string;
     year?: number;
-    sort: CatalogSort;
+    sort?: CatalogSort;
     page: number;
-    limit: number;
+    limit?: number;
 };
 
 function getParam(sp: SearchParams, key: string): string | undefined {
@@ -27,20 +27,25 @@ export function parseCatalogQuery(searchParams: SearchParams): CatalogQuery {
     const year = yearNum && Number.isFinite(yearNum) ? yearNum : undefined;
 
     const sortRaw = getParam(searchParams, 'sort');
-    const sort: CatalogSort = (
+    const sort: CatalogSort | undefined =
         sortRaw === 'price-asc' ||
         sortRaw === 'price-desc' ||
         sortRaw === 'power-desc' ||
         sortRaw === 'year-desc'
-    ) ? sortRaw : 'year-desc';
+            ? sortRaw
+            : undefined;
 
     const pageRaw = getParam(searchParams, 'page');
     const pageNum = pageRaw ? Number(pageRaw) : 1;
     const page = pageNum > 0 ? pageNum : 1;
 
     const limitRaw = getParam(searchParams, 'limit');
-    const limitNum = limitRaw ? Number(limitRaw) : 5;
-    const limit = limitNum > 0 && limitNum <= 100 ? limitNum : 5;
+    const limitNum = limitRaw ? Number(limitRaw) : undefined;
+    const limit =
+        limitNum && Number.isFinite(limitNum) && limitNum > 0 && limitNum <= 100
+            ? limitNum
+            : undefined;
 
     return { q, category, year, sort, page, limit };
 }
+

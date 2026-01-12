@@ -4,6 +4,8 @@ import {Header} from '@/ui/layout/Header/Header';
 import {isBrand} from '@/shared/config/brands';
 import type {Metadata} from 'next';
 import { getFavoritesMap, getCompareMap } from '@/server/actions/preferences';
+import { getPreferences } from "@/server/actions/account";
+import { PreferencesProvider } from '@/shared/context/PreferencesContext';
 
 export async function generateMetadata({
    params,
@@ -33,9 +35,10 @@ export default async function BrandLayout({
     const { brand } = await params;
     if (!isBrand(brand)) return notFound();
 
-    const [favoritesMap, compareMap] = await Promise.all([
+    const [favoritesMap, compareMap, prefs] = await Promise.all([
         getFavoritesMap(),
         getCompareMap(),
+        getPreferences(),
     ]);
 
     const preloadedState = {
@@ -45,10 +48,12 @@ export default async function BrandLayout({
 
     return (
         <div data-brand={brand}>
-            <Providers preloadedState={preloadedState as any}>
-                <Header brand={brand}/>
-                <main style={{padding: '24px'}}>{children}</main>
-            </Providers>
+            <PreferencesProvider value={prefs}>
+                <Providers preloadedState={preloadedState as any}>
+                    <Header brand={brand}/>
+                    <main style={{padding: '24px'}}>{children}</main>
+                </Providers>
+            </PreferencesProvider>
         </div>
     );
 }

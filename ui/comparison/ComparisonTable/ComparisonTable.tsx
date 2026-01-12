@@ -4,6 +4,8 @@ import Link from 'next/link';
 import styles from './ComparisonTable.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTransition } from 'react';
+import {usePreferences} from "@/shared/context/PreferencesContext";
+import {formatPrice} from "@/shared/lib/format/formatPrice";
 
 import type { RootState, AppDispatch } from '@/shared/store/store';
 import type { Product } from '@/shared/mock/products';
@@ -19,6 +21,7 @@ type Props = {
 export function ComparisonTable({ brand, products }: Props) {
     const dispatch = useDispatch<AppDispatch>();
     const max = useSelector((s: RootState) => s.comparison.max);
+    const prefs = usePreferences();
 
     const [pending, startTransition] = useTransition();
 
@@ -87,7 +90,11 @@ export function ComparisonTable({ brand, products }: Props) {
                     label="Price"
                     values={items.map((p) => ({
                         value: p.price,
-                        text: formatPrice(p.price, p.currency),
+                        text: formatPrice({
+                            priceRub: p.price,
+                            currency: prefs.currency,
+                            locale: prefs.locale,
+                        }),
                     }))}
                     highlightIndex={getMinIndex(items.map((p) => p.price))}
                     highlightTitle="Best price"
@@ -150,9 +157,6 @@ function HighlightRow({
     );
 }
 
-function formatPrice(price: number, currency: string) {
-    return `${price.toLocaleString('ru-RU')} ${currency}`;
-}
 
 function getMinIndex(nums: number[]) {
     if (nums.length === 0) return -1;
