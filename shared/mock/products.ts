@@ -26,12 +26,12 @@ export const PRODUCTS_BY_BRAND: Record<Brand, Product[]> = {
         {
             "id": "a-001",
             "brand": "alpha",
-            "slug": "alpha-suv-urban-1",
-            "title": "Alpha Suv Urban",
+            "slug": "alpha-hatchback-urban-1", // Изменено: suv -> hatchback
+            "title": "Alpha Hatchback Urban", // Изменено: Suv -> Hatchback
             "price": 2368000,
             "currency": "RUB",
-            "year": 2023,
-            "category": "suv",
+            "year": 2020,
+            "category": "hatchback", // Изменено: suv -> hatchback
             "specs": {
                 "powerHp": 265,
                 "transmission": "MT",
@@ -161,12 +161,12 @@ export const PRODUCTS_BY_BRAND: Record<Brand, Product[]> = {
         {
             "id": "a-010",
             "brand": "alpha",
-            "slug": "alpha-suv-explorer-10",
-            "title": "Alpha Suv Explorer",
+            "slug": "alpha-hatchback-explorer-10", // Изменено: suv -> hatchback
+            "title": "Alpha Hatchback Explorer", // Изменено: Suv -> Hatchback
             "price": 1776000,
             "currency": "RUB",
             "year": 2025,
-            "category": "suv",
+            "category": "hatchback", // Изменено: suv -> hatchback
             "specs": {
                 "powerHp": 293,
                 "transmission": "AT",
@@ -176,12 +176,12 @@ export const PRODUCTS_BY_BRAND: Record<Brand, Product[]> = {
         {
             "id": "a-011",
             "brand": "alpha",
-            "slug": "alpha-suv-explorer-11",
-            "title": "Alpha Suv Explorer",
+            "slug": "alpha-hatchback-explorer-11", // Изменено: suv -> hatchback
+            "title": "Alpha Hatchback Explorer", // Изменено: Suv -> Hatchback
             "price": 1826000,
             "currency": "RUB",
             "year": 2024,
-            "category": "suv",
+            "category": "hatchback", // Изменено: suv -> hatchback
             "specs": {
                 "powerHp": 222,
                 "transmission": "AT",
@@ -206,12 +206,12 @@ export const PRODUCTS_BY_BRAND: Record<Brand, Product[]> = {
         {
             "id": "a-013",
             "brand": "alpha",
-            "slug": "alpha-suv-urban-13",
-            "title": "Alpha Suv Urban",
+            "slug": "alpha-hatchback-urban-13", // Изменено: suv -> hatchback
+            "title": "Alpha Hatchback Urban", // Изменено: Suv -> Hatchback
             "price": 3637000,
             "currency": "RUB",
             "year": 2023,
-            "category": "suv",
+            "category": "hatchback", // Изменено: suv -> hatchback
             "specs": {
                 "powerHp": 222,
                 "transmission": "AT",
@@ -281,48 +281,18 @@ export const PRODUCTS_BY_BRAND: Record<Brand, Product[]> = {
         {
             "id": "a-018",
             "brand": "alpha",
-            "slug": "alpha-suv-explorer-18",
-            "title": "Alpha Suv Explorer",
+            "slug": "alpha-hatchback-explorer-18", // Изменено: suv -> hatchback
+            "title": "Alpha Hatchback Explorer", // Изменено: Suv -> Hatchback
             "price": 3256000,
             "currency": "RUB",
             "year": 2024,
-            "category": "suv",
+            "category": "hatchback", // Изменено: suv -> hatchback
             "specs": {
                 "powerHp": 197,
                 "transmission": "AT",
                 "drive": "RWD"
             }
         },
-        {
-            "id": "a-019",
-            "brand": "alpha",
-            "slug": "alpha-sedan-classic-19",
-            "title": "Alpha Sedan Classic",
-            "price": 2324000,
-            "currency": "RUB",
-            "year": 2024,
-            "category": "sedan",
-            "specs": {
-                "powerHp": 162,
-                "transmission": "MT",
-                "drive": "FWD"
-            }
-        },
-        {
-            "id": "a-020",
-            "brand": "alpha",
-            "slug": "alpha-hatchback-city-20",
-            "title": "Alpha Hatchback City",
-            "price": 1523000,
-            "currency": "RUB",
-            "year": 2023,
-            "category": "hatchback",
-            "specs": {
-                "powerHp": 138,
-                "transmission": "MT",
-                "drive": "RWD"
-            }
-        }
     ],
 
     beta: [
@@ -331,7 +301,7 @@ export const PRODUCTS_BY_BRAND: Record<Brand, Product[]> = {
             "brand": "beta",
             "slug": "beta-coupe-turbo-1",
             "title": "Beta Coupe Turbo",
-            "price": 36000,
+            "price": 75000, // Исправлено: 36000 -> 75000
             "currency": "USD",
             "year": 2025,
             "category": "coupe",
@@ -346,7 +316,7 @@ export const PRODUCTS_BY_BRAND: Record<Brand, Product[]> = {
             "brand": "beta",
             "slug": "beta-hatchback-urban-2",
             "title": "Beta Hatchback Urban",
-            "price": 53000,
+            "price": 52000, // Исправлено: 53000 -> 52000
             "currency": "USD",
             "year": 2023,
             "category": "hatchback",
@@ -361,7 +331,7 @@ export const PRODUCTS_BY_BRAND: Record<Brand, Product[]> = {
             "brand": "beta",
             "slug": "beta-sedan-classic-3",
             "title": "Beta Sedan Classic",
-            "price": 29000,
+            "price": 68000, // Исправлено: 29000 -> 68000
             "currency": "USD",
             "year": 2024,
             "category": "sedan",
@@ -376,7 +346,7 @@ export const PRODUCTS_BY_BRAND: Record<Brand, Product[]> = {
             "brand": "beta",
             "slug": "beta-hatchback-active-4",
             "title": "Beta Hatchback Active",
-            "price": 43000,
+            "price": 54000, // Исправлено: 43000 -> 54000
             "currency": "USD",
             "year": 2023,
             "category": "hatchback",
@@ -391,7 +361,7 @@ export const PRODUCTS_BY_BRAND: Record<Brand, Product[]> = {
             "brand": "beta",
             "slug": "beta-sedan-premium-5",
             "title": "Beta Sedan Premium",
-            "price": 49000,
+            "price": 72000, // Исправлено: 49000 -> 72000
             "currency": "USD",
             "year": 2023,
             "category": "sedan",
@@ -406,7 +376,7 @@ export const PRODUCTS_BY_BRAND: Record<Brand, Product[]> = {
             "brand": "beta",
             "slug": "beta-coupe-racing-6",
             "title": "Beta Coupe Racing",
-            "price": 51000,
+            "price": 85000, // Исправлено: 51000 -> 85000
             "currency": "USD",
             "year": 2025,
             "category": "coupe",
@@ -421,7 +391,7 @@ export const PRODUCTS_BY_BRAND: Record<Brand, Product[]> = {
             "brand": "beta",
             "slug": "beta-suv-explorer-7",
             "title": "Beta Suv Explorer",
-            "price": 40000,
+            "price": 78000, // Исправлено: 40000 -> 78000
             "currency": "USD",
             "year": 2025,
             "category": "suv",
@@ -436,7 +406,7 @@ export const PRODUCTS_BY_BRAND: Record<Brand, Product[]> = {
             "brand": "beta",
             "slug": "beta-suv-adventure-8",
             "title": "Beta Suv Adventure",
-            "price": 28000,
+            "price": 82000, // Исправлено: 28000 -> 82000
             "currency": "USD",
             "year": 2024,
             "category": "suv",
@@ -451,7 +421,7 @@ export const PRODUCTS_BY_BRAND: Record<Brand, Product[]> = {
             "brand": "beta",
             "slug": "beta-sedan-luxury-9",
             "title": "Beta Sedan Luxury",
-            "price": 53000,
+            "price": 95000, // Исправлено: 53000 -> 95000
             "currency": "USD",
             "year": 2025,
             "category": "sedan",
@@ -466,7 +436,7 @@ export const PRODUCTS_BY_BRAND: Record<Brand, Product[]> = {
             "brand": "beta",
             "slug": "beta-coupe-sport-10",
             "title": "Beta Coupe Sport",
-            "price": 37000,
+            "price": 71000, // Исправлено: 37000 -> 71000
             "currency": "USD",
             "year": 2025,
             "category": "coupe",
@@ -481,7 +451,7 @@ export const PRODUCTS_BY_BRAND: Record<Brand, Product[]> = {
             "brand": "beta",
             "slug": "beta-hatchback-style-11",
             "title": "Beta Hatchback Style",
-            "price": 52000,
+            "price": 48000, // Исправлено: 52000 -> 48000
             "currency": "USD",
             "year": 2025,
             "category": "hatchback",
@@ -496,7 +466,7 @@ export const PRODUCTS_BY_BRAND: Record<Brand, Product[]> = {
             "brand": "beta",
             "slug": "beta-sedan-sport-12",
             "title": "Beta Sedan Sport",
-            "price": 42000,
+            "price": 66000, // Исправлено: 42000 -> 66000
             "currency": "USD",
             "year": 2025,
             "category": "sedan",
@@ -511,7 +481,7 @@ export const PRODUCTS_BY_BRAND: Record<Brand, Product[]> = {
             "brand": "beta",
             "slug": "beta-hatchback-active-13",
             "title": "Beta Hatchback Active",
-            "price": 44000,
+            "price": 53000, // Исправлено: 44000 -> 53000
             "currency": "USD",
             "year": 2024,
             "category": "hatchback",
@@ -526,7 +496,7 @@ export const PRODUCTS_BY_BRAND: Record<Brand, Product[]> = {
             "brand": "beta",
             "slug": "beta-coupe-turbo-14",
             "title": "Beta Coupe Turbo",
-            "price": 34000,
+            "price": 89000, // Исправлено: 34000 -> 89000
             "currency": "USD",
             "year": 2023,
             "category": "coupe",
@@ -541,7 +511,7 @@ export const PRODUCTS_BY_BRAND: Record<Brand, Product[]> = {
             "brand": "beta",
             "slug": "beta-coupe-turbo-15",
             "title": "Beta Coupe Turbo",
-            "price": 53000,
+            "price": 92000, // Исправлено: 53000 -> 92000
             "currency": "USD",
             "year": 2023,
             "category": "coupe",
@@ -556,7 +526,7 @@ export const PRODUCTS_BY_BRAND: Record<Brand, Product[]> = {
             "brand": "beta",
             "slug": "beta-hatchback-active-16",
             "title": "Beta Hatchback Active",
-            "price": 36000,
+            "price": 51000, // Исправлено: 36000 -> 51000
             "currency": "USD",
             "year": 2023,
             "category": "hatchback",
@@ -571,7 +541,7 @@ export const PRODUCTS_BY_BRAND: Record<Brand, Product[]> = {
             "brand": "beta",
             "slug": "beta-sedan-sport-17",
             "title": "Beta Sedan Sport",
-            "price": 46000,
+            "price": 63000, // Исправлено: 46000 -> 63000
             "currency": "USD",
             "year": 2023,
             "category": "sedan",
@@ -586,7 +556,7 @@ export const PRODUCTS_BY_BRAND: Record<Brand, Product[]> = {
             "brand": "beta",
             "slug": "beta-hatchback-city-18",
             "title": "Beta Hatchback City",
-            "price": 37000,
+            "price": 45000, // Исправлено: 37000 -> 45000
             "currency": "USD",
             "year": 2023,
             "category": "hatchback",
@@ -601,7 +571,7 @@ export const PRODUCTS_BY_BRAND: Record<Brand, Product[]> = {
             "brand": "beta",
             "slug": "beta-sedan-sport-19",
             "title": "Beta Sedan Sport",
-            "price": 24000,
+            "price": 59000, // Исправлено: 24000 -> 59000
             "currency": "USD",
             "year": 2023,
             "category": "sedan",
@@ -616,7 +586,7 @@ export const PRODUCTS_BY_BRAND: Record<Brand, Product[]> = {
             "brand": "beta",
             "slug": "beta-hatchback-active-20",
             "title": "Beta Hatchback Active",
-            "price": 20000,
+            "price": 47000, // Исправлено: 20000 -> 47000
             "currency": "USD",
             "year": 2024,
             "category": "hatchback",

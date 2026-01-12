@@ -1,7 +1,7 @@
 import type { RootState } from '@/shared/store/store';
 
-export const selectComparisonIdsByBrand = (brand: string) => (state: RootState) =>
-    state.comparison.idsByBrand[brand] ?? [];
+export const selectCompareCountByBrand = (brand: string) => (s: RootState) =>
+    (s.comparison.idsByBrand[brand]?.length ?? 0);
 
 
 export const selectIsProductInComparison = (brand: string, productId: string) =>

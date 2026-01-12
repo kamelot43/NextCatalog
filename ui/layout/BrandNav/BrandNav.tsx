@@ -1,6 +1,9 @@
 'use client';
 
 import Link from 'next/link';
+import { useSelector } from 'react-redux';
+import {selectFavoritesCountByBrand} from "@/features/favorites/model/favoritesSelectors";
+import {selectCompareCountByBrand} from "@/features/comparison/model/comparisonSelectors";
 import { usePathname } from 'next/navigation';
 import styles from './BrandNav.module.css';
 
@@ -10,6 +13,9 @@ export function BrandNav({ brand }: { brand: string }) {
     const pathname = usePathname() || '';
 
     const base = `/brand/${brand}`;
+
+    const favCount = useSelector(selectFavoritesCountByBrand(brand));
+    const cmpCount = useSelector(selectCompareCountByBrand(brand));
 
     const items: NavItem[] = [
         {
@@ -44,6 +50,9 @@ export function BrandNav({ brand }: { brand: string }) {
         <nav className={styles.nav} aria-label="Sections">
             {items.map((it) => {
                 const isActive = it.match(pathname);
+                const showFavCount = it.label === 'Favorites' && favCount > 0;
+                const showCmpCount = it.label === 'Comparison' && cmpCount > 0;
+
                 return (
                     <Link
                         key={it.label}
@@ -52,6 +61,8 @@ export function BrandNav({ brand }: { brand: string }) {
                         aria-current={isActive ? 'page' : undefined}
                     >
                         {it.label}
+                        {showFavCount && <span className={styles.badge}>{favCount}</span>}
+                        {showCmpCount && <span className={styles.badge}>{cmpCount}</span>}
                     </Link>
                 );
             })}
