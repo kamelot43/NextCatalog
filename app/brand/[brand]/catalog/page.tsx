@@ -13,6 +13,8 @@ function toBrandTitle(brand: string) {
     return brand ? brand[0].toUpperCase() + brand.slice(1) : 'Brand';
 }
 
+export const revalidate = 60;
+
 export async function generateMetadata({
     params,
 }: {

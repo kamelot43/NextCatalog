@@ -10,6 +10,8 @@ import { getCompareMap } from '@/server/actions/preferences';
 import { getAllProductsByBrandServer } from '@/server/catalog/getAllProductsByBrand';
 import { selectProductsByIds } from '@/server/catalog/selectProductsByIds';
 
+export const dynamic = 'force-dynamic';
+
 function toBrandTitle(brand: string) {
     return brand ? brand[0].toUpperCase() + brand.slice(1) : 'Brand';
 }
@@ -40,7 +42,7 @@ export default async function ComparisonPage({
     const compareMap = await getCompareMap();
     const ids = compareMap[brand] ?? [];
 
-    const all = getAllProductsByBrandServer(brand);
+    const all = await getAllProductsByBrandServer(brand);
     if (!all) return notFound();
 
     const products = selectProductsByIds(all, ids);

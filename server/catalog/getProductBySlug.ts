@@ -1,7 +1,6 @@
-import { isBrand } from '@/shared/config/brands';
-import { PRODUCTS_BY_BRAND } from '@/shared/mock/products';
+import type { Product } from '@/shared/mock/products';
+import { getProductBySlugCached } from '@/server/data/products';
 
-export function getProductBySlugServer(brand: string, slug: string) {
-    if (!isBrand(brand)) return null;
-    return PRODUCTS_BY_BRAND[brand].find((p) => p.slug === slug) ?? null;
+export async function getProductBySlugServer(brand: string, slug: string): Promise<Product | null> {
+    return getProductBySlugCached(brand, slug);
 }

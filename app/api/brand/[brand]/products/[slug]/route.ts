@@ -7,7 +7,7 @@ export async function GET(
 ) {
     const { brand, slug } = await ctx.params;
 
-    const product = getProductBySlugServer(brand, slug);
+    const product = await getProductBySlugServer(brand, slug);
     if (!product) {
         return NextResponse.json({ error: 'Product not found' }, { status: 404 });
     }

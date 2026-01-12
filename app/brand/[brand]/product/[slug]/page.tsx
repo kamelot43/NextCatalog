@@ -9,6 +9,8 @@ function toBrandTitle(brand: string) {
     return brand ? brand[0].toUpperCase() + brand.slice(1) : 'Brand';
 }
 
+export const revalidate = 60;
+
 export async function generateMetadata({
    params,
 }: {
@@ -18,7 +20,7 @@ export async function generateMetadata({
 
     if (!isBrand(brand)) return { title: 'Not found' };
 
-    const product = getProductBySlugServer(brand, slug);
+    const product = await getProductBySlugServer(brand, slug);
     if (!product) return { title: 'Not found' };
 
     const brandTitle = toBrandTitle(brand);
@@ -38,7 +40,7 @@ export default async function ProductPage({
 
     if (!isBrand(brand)) return notFound();
 
-    const product = getProductBySlugServer(brand, slug);
+    const product = await getProductBySlugServer(brand, slug);
     if (!product) return notFound();
 
     return <ProductDetails brand={brand} product={product} />;
