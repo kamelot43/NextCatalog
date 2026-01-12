@@ -10,6 +10,8 @@
 .logo {
     font-weight: 600;
     font-size: 18px;
+    color: var(--accent);
+    text-decoration: none;
 }
 
 .nav {
@@ -35,3 +37,31 @@
     font-size: 14px;
     color: var(--muted);
 }
+
+.right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    border-radius: 999px;
+    padding: 6px 10px 6px 6px;
+}
+
+.userName {
+    font-size: 14px;
+    color: var(--text);
+}
+
+.userLink {
+    text-decoration: none;
+    color: inherit;
+    display: inline-flex;
+}
+

@@ -4,8 +4,10 @@ import {Header} from '@/ui/layout/Header/Header';
 import {isBrand} from '@/shared/config/brands';
 import type {Metadata} from 'next';
 import { getFavoritesMap, getCompareMap } from '@/server/actions/preferences';
+import { getProfile } from '@/server/actions/account';
 import { getPreferences } from "@/server/actions/account";
 import { PreferencesProvider } from '@/shared/context/PreferencesContext';
+import { ProfileGate } from '@/ui/layout/ProfileGate/ProfileGate';
 
 export async function generateMetadata({
    params,
@@ -35,10 +37,11 @@ export default async function BrandLayout({
     const { brand } = await params;
     if (!isBrand(brand)) return notFound();
 
-    const [favoritesMap, compareMap, prefs] = await Promise.all([
+    const [favoritesMap, compareMap, prefs, profile] = await Promise.all([
         getFavoritesMap(),
         getCompareMap(),
         getPreferences(),
+        getProfile(),
     ]);
 
     const preloadedState = {
@@ -48,12 +51,14 @@ export default async function BrandLayout({
 
     return (
         <div data-brand={brand}>
-            <PreferencesProvider value={prefs}>
-                <Providers preloadedState={preloadedState as any}>
-                    <Header brand={brand}/>
-                    <main style={{padding: '24px'}}>{children}</main>
-                </Providers>
-            </PreferencesProvider>
+            <ProfileGate initialProfile={profile}>
+                <PreferencesProvider value={prefs}>
+                    <Providers preloadedState={preloadedState as any}>
+                        <Header brand={brand}/>
+                        <main style={{padding: '24px'}}>{children}</main>
+                    </Providers>
+                </PreferencesProvider>
+            </ProfileGate>
         </div>
     );
 }

@@ -3,6 +3,7 @@
 import { cookies } from 'next/headers';
 import { revalidatePath } from 'next/cache';
 import { isBrand } from '@/shared/config/brands';
+import {AvatarId} from "@/shared/config/avatars";
 
 const PROFILE_COOKIE = 'profile_v1';
 const PREFS_COOKIE = 'prefs_v1';
@@ -10,6 +11,7 @@ const PREFS_COOKIE = 'prefs_v1';
 export type Profile = {
     displayName: string;
     email?: string;
+    avatarId?: AvatarId;
     updatedAt: number;
 };
 
@@ -26,6 +28,7 @@ export type Preferences = {
 
 const defaultProfile: Profile = {
     displayName: '',
+    avatarId: 'a1',
     updatedAt: Date.now(),
 };
 
@@ -116,7 +119,7 @@ function clampCurrency(v: string | null): Preferences['currency'] {
 function clampSort(v: string | null): Preferences['catalog']['sort'] {
     if (v === 'price-asc') return 'price-asc';
     if (v === 'price-desc') return 'price-desc';
-    if (v === ' power-desc') return 'power-desc';
+    if (v === 'power-desc') return 'power-desc';
     return 'year-desc';
 }
 
@@ -125,10 +128,25 @@ export async function updateProfileAction(brand: string, formData: FormData) {
 
     const displayName = String(formData.get('displayName') ?? '').trim().slice(0, 40);
     const emailRaw = String(formData.get('email') ?? '').trim().slice(0, 80);
+    const avatarIdRaw = String(formData.get('avatarId') ?? '').trim();
+
+    const avatarId: AvatarId =
+        avatarIdRaw === 'a1' ||
+        avatarIdRaw === 'a2' ||
+        avatarIdRaw === 'a3' ||
+        avatarIdRaw === 'a4' ||
+        avatarIdRaw === 'a5' ||
+        avatarIdRaw === 'a6' ||
+        avatarIdRaw === 'a7' ||
+        avatarIdRaw === 'a8' ||
+        avatarIdRaw === 'a9'
+            ? avatarIdRaw
+            : 'a1';
 
     const next: Profile = {
         displayName,
         email: emailRaw.length ? emailRaw : undefined,
+        avatarId,
         updatedAt: Date.now(),
     };
 

@@ -13,3 +13,9 @@
 .label { color: var(--muted); margin-right: 6px; }
 
 .forms { display: grid; gap: 16px; }
+
+.currentRow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
