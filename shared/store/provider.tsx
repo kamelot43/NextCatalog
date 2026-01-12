@@ -1,25 +1,22 @@
 'use client';
 
 import { Provider } from 'react-redux';
-import { store } from './store';
-import { useEffect } from 'react';
-import { favoritesByBrandStorage, comparisonByBrandStorage} from '@/shared/lib/storage/persist';
-import { hydrateFavorites } from '@/features/favorites/model/favoritesSlice';
-import { hydrateCompare } from '@/features/comparison/model/comparisonSlice';
+import { useRef } from 'react';
+import { makeStore, type AppStore, type RootState } from './store';
+import type { PreloadedState } from '@reduxjs/toolkit';
 
-export function Providers({ children }: { children: React.ReactNode }) {
-    useEffect(() => {
-        store.dispatch(hydrateFavorites(favoritesByBrandStorage.load()));
-        store.dispatch(hydrateCompare(comparisonByBrandStorage.load()));
+export function Providers({
+  children,
+  preloadedState,
+}: {
+    children: React.ReactNode;
+    preloadedState?: PreloadedState<RootState>;
+}) {
+    const storeRef = useRef<AppStore | null>(null);
 
-        const unsubscribe = store.subscribe(() => {
-            const state = store.getState();
-            favoritesByBrandStorage.save(state.favorites.idsByBrand);
-            comparisonByBrandStorage.save(state.comparison.idsByBrand);
-        });
+    if (!storeRef.current) {
+        storeRef.current = makeStore(preloadedState);
+    }
 
-        return unsubscribe;
-    }, []);
-
-    return <Provider store={store}>{children}</Provider>;
+    return <Provider store={storeRef.current}>{children}</Provider>;
 }

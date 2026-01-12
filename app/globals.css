@@ -1,11 +1,21 @@
 :root {
   --bg: #ffffff;
+  --bg-hover: #f9fafb;
+
   --text: #111827;
   --muted: #6b7280;
+
   --border: #e5e7eb;
+
   --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+
+  --danger: #dc2626;
+  --danger-hover: #b91c1c;
+
   --skeleton: rgba(0, 0, 0, 0.08);
 }
+
 
 [data-brand='alpha'] {
   --accent: #2563eb; /* blue */

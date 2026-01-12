@@ -1,7 +1,14 @@
 import styles from './ComparisonPage.module.css';
-import {getProducts} from '@/shared/api/products';
-import {ComparisonTable} from '@/ui/comparison/ComparisonTable/ComparisonTable';
-import type {Metadata} from 'next';
+import type { Metadata } from 'next';
+
+import { notFound } from 'next/navigation';
+import { isBrand } from '@/shared/config/brands';
+
+import { ComparisonTable } from '@/ui/comparison/ComparisonTable/ComparisonTable';
+
+import { getCompareMap } from '@/server/actions/preferences';
+import { getAllProductsByBrandServer } from '@/server/catalog/getAllProductsByBrand';
+import { selectProductsByIds } from '@/server/catalog/selectProductsByIds';
 
 function toBrandTitle(brand: string) {
     return brand ? brand[0].toUpperCase() + brand.slice(1) : 'Brand';
@@ -27,8 +34,16 @@ export default async function ComparisonPage({
 }: {
     params: Promise<{ brand: string }>;
 }) {
-    const {brand} = await params;
-    const products = await getProducts(brand);
+    const { brand } = await params;
+    if (!isBrand(brand)) return notFound();
+
+    const compareMap = await getCompareMap();
+    const ids = compareMap[brand] ?? [];
+
+    const all = getAllProductsByBrandServer(brand);
+    if (!all) return notFound();
+
+    const products = selectProductsByIds(all, ids);
 
     return (
         <section className={styles.page}>

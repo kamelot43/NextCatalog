@@ -41,3 +41,66 @@
 .link:hover {
     text-decoration: underline;
 }
+
+/* Toolbar над списком */
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+/* Счётчик избранного */
+.count {
+    font-size: 14px;
+    color: var(--muted);
+}
+
+/* Кнопка "Clear all" */
+.clear {
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 13px;
+    cursor: pointer;
+    color: var(--text);
+}
+
+.clear:hover {
+    background: var(--bg-hover);
+}
+
+.clear:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Обёртка карточки + кнопки Remove */
+.cardWrap {
+    position: relative;
+}
+
+/* Кнопка Remove под карточкой */
+.remove {
+    margin-top: 8px;
+    width: 100%;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 6px 0;
+    font-size: 13px;
+    cursor: pointer;
+    color: var(--muted);
+}
+
+.remove:hover {
+    color: var(--danger, #c62828);
+    border-color: var(--danger, #c62828);
+}
+
+.remove:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+

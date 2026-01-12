@@ -3,6 +3,7 @@ import {Providers} from '@/shared/store/provider';
 import {Header} from '@/ui/layout/Header/Header';
 import {isBrand} from '@/shared/config/brands';
 import type {Metadata} from 'next';
+import { getFavoritesMap, getCompareMap } from '@/server/actions/preferences';
 
 export async function generateMetadata({
    params,
@@ -11,9 +12,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
     const {brand} = await params;
 
-    if (!isBrand(brand)) {
-        notFound();
-    }
+    if (!isBrand(brand)) return notFound();
 
     const brandTitle = brand === 'alpha' ? 'Alpha' : brand === 'beta' ? 'Beta' : brand;
 
@@ -30,15 +29,23 @@ export default async function BrandLayout({
     children: React.ReactNode;
     params: Promise<{ brand: string }>;
 }) {
-    const {brand} = await params;
 
-    if (!isBrand(brand)) {
-        notFound();
-    }
+    const { brand } = await params;
+    if (!isBrand(brand)) return notFound();
+
+    const [favoritesMap, compareMap] = await Promise.all([
+        getFavoritesMap(),
+        getCompareMap(),
+    ]);
+
+    const preloadedState = {
+        favorites: { idsByBrand: favoritesMap },
+        comparison: { idsByBrand: compareMap, max: 4 },
+    };
 
     return (
         <div data-brand={brand}>
-            <Providers>
+            <Providers preloadedState={preloadedState as any}>
                 <Header brand={brand}/>
                 <main style={{padding: '24px'}}>{children}</main>
             </Providers>

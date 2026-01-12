@@ -1,11 +1,13 @@
 import styles from './CatalogPage.module.css';
-import { getProducts } from '@/shared/api/products';
-import { parseCatalogQuery } from "@/shared/lib/catalog/catalogQuery";
+import { parseCatalogQuery } from '@/shared/lib/catalog/catalogQuery';
 import { ProductCard } from '@/ui/product/ProductCard/ProductCard';
-import CatalogFilters from "@/ui/catalog-filters/CatalogFilters";
-import {Pagination} from "@/ui/pagination/Pagination";
-import {getCatalogData} from "@/shared/lib/catalog/catalogService";
-import type {Metadata} from 'next';
+import CatalogFilters from '@/ui/catalog-filters/CatalogFilters';
+import { Pagination } from '@/ui/pagination/Pagination';
+import type { Metadata } from 'next';
+
+import { notFound } from 'next/navigation';
+import { isBrand } from '@/shared/config/brands';
+import { getProductsServer } from '@/server/catalog/getProducts';
 
 function toBrandTitle(brand: string) {
     return brand ? brand[0].toUpperCase() + brand.slice(1) : 'Brand';
@@ -34,15 +36,23 @@ type PageProps = {
 export default async function CatalogPage({ params, searchParams}: PageProps) {
     // 1. Получаем параметры
     const { brand } = await params;
+
+    if (!isBrand(brand)) return  notFound();
+
     const rawSearchParams = await searchParams;
 
-    // 2. Получаем данные
-    const products = await getProducts(brand);
     const query = parseCatalogQuery(rawSearchParams);
 
-    // 3. Обрабатываем каталог через сервис
-    const catalogData = getCatalogData(products, query);
-    const { paginated, categories, years } = catalogData;
+    const data = getProductsServer(brand, {
+        q: query.q,
+        category: query.category,
+        year: query.year,
+        sort: query.sort,
+        page: query.page,
+        limit: query.limit,
+    });
+
+    if (!data) return notFound();
 
     // 4. Подготавливаем пропсы
     const pathname = `/brand/${brand}/catalog`;
@@ -50,7 +60,7 @@ export default async function CatalogPage({ params, searchParams}: PageProps) {
     return (
         <section className={styles.page}>
             <aside className={styles.sidebar}>
-                <CatalogFilters categories={categories} years={years} initialQuery={query} />
+                <CatalogFilters categories={data.categories} years={data.years} initialQuery={query} />
             </aside>
 
             <div className={styles.content}>
@@ -58,26 +68,26 @@ export default async function CatalogPage({ params, searchParams}: PageProps) {
                     <h1 className={styles.title}>Catalog</h1>
 
                     <p className={styles.results}>
-                        Found: <b>{paginated.total}</b> cars
+                        Found: <b>{data?.total}</b> cars
                     </p>
                 </div>
 
-                {paginated.items.length === 0 ? (
+                {data.items.length === 0 ? (
                     <p className={styles.empty}>No results. Try changing filters.</p>
                 ) : (
                     <div className={styles.grid}>
-                        {paginated.items.map((p) => (
+                        {data.items.map((p) => (
                             <ProductCard key={p.id} brand={brand} product={p} />
                         ))}
                     </div>
                 )}
 
-                {paginated.totalPages > 1 && (
+                {data.totalPages > 1 && (
                     <Pagination
                         pathname={pathname}
                         searchParams={rawSearchParams}
-                        page={paginated.currentPage}
-                        totalPages={paginated.totalPages}
+                        page={data.currentPage}
+                        totalPages={data.totalPages}
                     />
                 )}
             </div>

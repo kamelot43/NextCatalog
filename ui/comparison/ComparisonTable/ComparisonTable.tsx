@@ -3,9 +3,13 @@
 import Link from 'next/link';
 import styles from './ComparisonTable.module.css';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTransition } from 'react';
+
 import type { RootState, AppDispatch } from '@/shared/store/store';
 import type { Product } from '@/shared/mock/products';
-import { removeCompare, clearCompare } from '@/features/comparison/model/comparisonSlice';
+
+import { hydrateCompare } from '@/features/comparison/model/comparisonSlice';
+import { toggleCompareCookie, clearCompareCookie } from '@/server/actions/preferences';
 
 type Props = {
     brand: string;
@@ -14,14 +18,13 @@ type Props = {
 
 export function ComparisonTable({ brand, products }: Props) {
     const dispatch = useDispatch<AppDispatch>();
-    const ids = useSelector((s: RootState) => s.comparison.idsByBrand[brand] ?? []);
     const max = useSelector((s: RootState) => s.comparison.max);
 
-    const items = ids
-        .map((id) => products.find((p) => p.id === id))
-        .filter(Boolean) as Product[];
+    const [pending, startTransition] = useTransition();
 
-    if (ids.length === 0) {
+    const items = products;
+
+    if (items.length === 0) {
         return (
             <div className={styles.empty}>
                 <h2 className={styles.emptyTitle}>Nothing to compare</h2>
@@ -33,25 +36,6 @@ export function ComparisonTable({ brand, products }: Props) {
         );
     }
 
-    if (items.length === 0) {
-        return (
-            <div className={styles.empty}>
-                <h2 className={styles.emptyTitle}>No matching products</h2>
-                <p className={styles.emptyText}>
-                    Selected items are not available for this brand.
-                </p>
-                <div className={styles.row}>
-                    <button className={styles.clear} onClick={() => dispatch(clearCompare())}>
-                        Clear comparison
-                    </button>
-                    <Link className={styles.link} href={`/brand/${brand}/catalog`}>
-                        Go to catalog →
-                    </Link>
-                </div>
-            </div>
-        );
-    }
-
     return (
         <div className={styles.wrap}>
             <div className={styles.toolbar}>
@@ -59,7 +43,16 @@ export function ComparisonTable({ brand, products }: Props) {
                     Selected: <strong>{items.length}</strong> / {max}
                 </div>
 
-                <button className={styles.clear} onClick={() => dispatch(clearCompare({ brand }))}>
+                <button
+                    className={styles.clear}
+                    disabled={pending}
+                    onClick={() => {
+                        startTransition(async () => {
+                            const res = await clearCompareCookie(brand);
+                            dispatch(hydrateCompare(res.map));
+                        });
+                    }}
+                >
                     Clear all
                 </button>
             </div>
@@ -67,14 +60,22 @@ export function ComparisonTable({ brand, products }: Props) {
             <div className={styles.table}>
                 <div className={styles.headerRow}>
                     <div className={styles.cellLeft}>Field</div>
+
                     {items.map((p) => (
                         <div key={p.id} className={styles.cell}>
                             <div className={styles.prodTitle}>
                                 <Link href={`/brand/${brand}/product/${p.slug}`}>{p.title}</Link>
                             </div>
+
                             <button
                                 className={styles.remove}
-                                onClick={() => dispatch(removeCompare({ brand, id: p.id }))}
+                                disabled={pending}
+                                onClick={() => {
+                                    startTransition(async () => {
+                                        const res = await toggleCompareCookie(brand, p.id);
+                                        dispatch(hydrateCompare(res.map));
+                                    });
+                                }}
                             >
                                 Remove
                             </button>
@@ -84,7 +85,10 @@ export function ComparisonTable({ brand, products }: Props) {
 
                 <HighlightRow
                     label="Price"
-                    values={items.map((p) => ({ value: p.price, text: formatPrice(p.price, p.currency) }))}
+                    values={items.map((p) => ({
+                        value: p.price,
+                        text: formatPrice(p.price, p.currency),
+                    }))}
                     highlightIndex={getMinIndex(items.map((p) => p.price))}
                     highlightTitle="Best price"
                 />
@@ -92,7 +96,10 @@ export function ComparisonTable({ brand, products }: Props) {
                 <Row label="Category" values={items.map((p) => p.category.toUpperCase())} />
                 <HighlightRow
                     label="Power"
-                    values={items.map((p) => ({ value: p.specs.powerHp, text: `${p.specs.powerHp} hp` }))}
+                    values={items.map((p) => ({
+                        value: p.specs.powerHp,
+                        text: `${p.specs.powerHp} hp`,
+                    }))}
                     highlightIndex={getMaxIndex(items.map((p) => p.specs.powerHp))}
                     highlightTitle="Max power"
                 />
@@ -142,7 +149,6 @@ function HighlightRow({
         </div>
     );
 }
-
 
 function formatPrice(price: number, currency: string) {
     return `${price.toLocaleString('ru-RU')} ${currency}`;

@@ -1,29 +1,32 @@
-import { getProductBySlug } from '@/shared/api/products';
-import { ProductDetails } from '@/ui/product/ProductDetails/ProductDetails';
-import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+
+import { isBrand } from '@/shared/config/brands';
+import { getProductBySlugServer } from '@/server/catalog/getProductBySlug';
+import { ProductDetails } from '@/ui/product/ProductDetails/ProductDetails';
+
+function toBrandTitle(brand: string) {
+    return brand ? brand[0].toUpperCase() + brand.slice(1) : 'Brand';
+}
 
 export async function generateMetadata({
-  params,
+   params,
 }: {
-  params: Promise<{ brand: string; slug: string }>;
+    params: Promise<{ brand: string; slug: string }>;
 }): Promise<Metadata> {
     const { brand, slug } = await params;
-    const product = await getProductBySlug(brand, slug);
 
-    if (!product) {
-        return {
-              title: 'Product not found — NextCatalog',
-              description: 'Запрошенный товар не найден.',
-        };
-    }
+    if (!isBrand(brand)) return { title: 'Not found' };
 
-      return {
-        title: `${product.title} — ${brand} — NextCatalog`,
-        description: `${product.title}: ${product.year}, ${product.category}. Цена: ${product.price.toLocaleString(
-          'ru-RU'
-        )} ${product.currency}.`,
-      };
+    const product = getProductBySlugServer(brand, slug);
+    if (!product) return { title: 'Not found' };
+
+    const brandTitle = toBrandTitle(brand);
+
+    return {
+        title: `${product.title} • ${brandTitle}`,
+        description: `Details for ${product.title} (${brandTitle}).`,
+    };
 }
 
 export default async function ProductPage({
@@ -32,11 +35,11 @@ export default async function ProductPage({
     params: Promise<{ brand: string; slug: string }>;
 }) {
     const { brand, slug } = await params;
-    const product = await getProductBySlug(brand, slug);
 
-    if (!product ) {
-        notFound();
-    }
+    if (!isBrand(brand)) return notFound();
+
+    const product = getProductBySlugServer(brand, slug);
+    if (!product) return notFound();
 
     return <ProductDetails brand={brand} product={product} />;
 }

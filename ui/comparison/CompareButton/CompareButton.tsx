@@ -1,10 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useTransition } from 'react';
 import styles from './CompareButton.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch } from '@/shared/store/store';
-import { toggleCompare } from '@/features/comparison/model/comparisonSlice';
+import { toggleCompare, hydrateCompare } from '@/features/comparison/model/comparisonSlice';
+import { toggleCompareCookie } from '@/server/actions/preferences';
 import {
     selectIsProductInComparison,
     selectIsComparisonLimitReached,
@@ -18,11 +19,7 @@ type Props = {
 
 export function CompareButton({ productId, brand }: Props) {
     const dispatch = useDispatch<AppDispatch>();
-    const [isHydrated, setIsHydrated] = useState(false);
-
-    useEffect(() => {
-        setIsHydrated(true);
-    }, []);
+    const [pending, startTransition] = useTransition();
 
     const max = useSelector(selectComparisonMaxLimit);
     const isIn = useSelector(selectIsProductInComparison(brand, productId));
@@ -34,19 +31,6 @@ export function CompareButton({ productId, brand }: Props) {
             ? 'Remove from comparison'
             : 'Add to comparison';
 
-    if (!isHydrated) {
-        return (
-            <button
-                type="button"
-                className={styles.button}
-                aria-pressed={false}
-                disabled
-                title="Loading..."
-            >
-                Compare
-            </button>
-        );
-    }
 
     return (
         <div className={styles.wrap}>
@@ -54,9 +38,23 @@ export function CompareButton({ productId, brand }: Props) {
                 type="button"
                 className={styles.button}
                 aria-pressed={isIn}
-                disabled={!isIn && isLimitReached}
+                disabled={pending || (!isIn && isLimitReached)}
                 title={title}
-                onClick={() => dispatch(toggleCompare({ brand, id: productId }))}
+                onClick={() => {
+                    dispatch(toggleCompare({ brand, id: productId }));
+
+                    startTransition(async () => {
+                        const res = await toggleCompareCookie(brand, productId);
+
+                        // @ts-ignore
+                        if (!res.ok && res.reason === 'LIMIT') {
+                            dispatch(toggleCompare({ brand, id: productId }));
+                            return;
+                        }
+
+                        if (res.ok) dispatch(hydrateCompare(res.map));
+                    });
+                }}
             >
                 {isIn ? 'Compared' : 'Compare'}
             </button>

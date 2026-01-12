@@ -1,7 +1,14 @@
 import styles from './FavoritesPage.module.css';
-import {getProducts} from '@/shared/api/products';
-import {FavoritesList} from '@/ui/favorites/FavoritesList/FavoritesList';
-import type {Metadata} from 'next';
+import type { Metadata } from 'next';
+
+import { notFound } from 'next/navigation';
+import { isBrand } from '@/shared/config/brands';
+
+import { FavoritesList } from '@/ui/favorites/FavoritesList/FavoritesList';
+
+import { getFavoritesMap } from '@/server/actions/preferences';
+import { getAllProductsByBrandServer } from '@/server/catalog/getAllProductsByBrand';
+import { selectProductsByIds } from '@/server/catalog/selectProductsByIds';
 
 
 function toBrandTitle(brand: string) {
@@ -28,9 +35,18 @@ export default async function FavoritesPage({
 }: {
     params: Promise<{ brand: string }>;
 }) {
-    const {brand} = await params;
+    const { brand } = await params;
+    if (!isBrand(brand)) return notFound();
 
-    const products = await getProducts(brand);
+    const [favoritesMap] = await Promise.all([getFavoritesMap()]);
+
+    const ids = favoritesMap[brand] ?? [];
+
+    const all = getAllProductsByBrandServer(brand);
+    if (!all) return notFound();
+
+    const products = selectProductsByIds(all, ids);
+
 
     return (
         <section className={styles.page}>

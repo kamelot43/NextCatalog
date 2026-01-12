@@ -1,13 +1,17 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, type PreloadedState } from '@reduxjs/toolkit';
 import { favoritesReducer } from '@/features/favorites/model/favoritesSlice';
 import { comparisonReducer } from '@/features/comparison/model/comparisonSlice';
 
-export const store = configureStore({
-    reducer: {
-        favorites: favoritesReducer,
-        comparison: comparisonReducer,
-    },
-});
+export const makeStore = (preloadedState?: PreloadedState<RootState>) =>
+    configureStore({
+        reducer: {
+            favorites: favoritesReducer,
+            comparison: comparisonReducer,
+        },
+        preloadedState,
+    });
 
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
+
+export type AppStore = ReturnType<typeof makeStore>;
+export type RootState = ReturnType<AppStore['getState']>;
+export type AppDispatch = AppStore['dispatch'];
