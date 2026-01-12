@@ -39,6 +39,9 @@ export default async function BrandHome({
 
     return (
         <main className={styles.page}>
+            <Link href="/" className={styles.allBrands}>
+                ← All brands
+            </Link>
             <section className={styles.hero}>
                 <h1 className={styles.h1}>{title}</h1>
                 <p className={styles.subtitle}>

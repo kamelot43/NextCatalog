@@ -67,3 +67,12 @@
     color: var(--muted);
     line-height: 1.6;
 }
+
+.allBrands {
+    display: inline-block;
+    margin-bottom: 12px;
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+}

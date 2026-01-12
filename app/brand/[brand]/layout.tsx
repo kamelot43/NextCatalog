@@ -1,6 +1,7 @@
 import {notFound} from 'next/navigation';
 import {Providers} from '@/shared/store/provider';
 import {Header} from '@/ui/layout/Header/Header';
+import {Footer} from "@/ui/layout/Footer/Footer";
 import {isBrand} from '@/shared/config/brands';
 import type {Metadata} from 'next';
 import { getFavoritesMap, getCompareMap } from '@/server/actions/preferences';
@@ -8,6 +9,7 @@ import { getProfile } from '@/server/actions/account';
 import { getPreferences } from "@/server/actions/account";
 import { PreferencesProvider } from '@/shared/context/PreferencesContext';
 import { ProfileGate } from '@/ui/layout/ProfileGate/ProfileGate';
+import styles from './layout.module.css';
 
 export async function generateMetadata({
    params,
@@ -50,12 +52,13 @@ export default async function BrandLayout({
     };
 
     return (
-        <div data-brand={brand}>
+        <div data-brand={brand} className={styles.page}>
             <ProfileGate initialProfile={profile}>
                 <PreferencesProvider value={prefs}>
                     <Providers preloadedState={preloadedState as any}>
                         <Header brand={brand}/>
-                        <main style={{padding: '24px'}}>{children}</main>
+                        <main className={styles.main}>{children}</main>
+                        <Footer />
                     </Providers>
                 </PreferencesProvider>
             </ProfileGate>
