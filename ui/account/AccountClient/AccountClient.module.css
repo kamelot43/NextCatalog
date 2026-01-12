@@ -1,0 +1,15 @@
+.grid { display: grid; gap: 16px; }
+
+.card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    background: var(--bg);
+}
+
+.cardTitle { margin: 0 0 12px 0; font-size: 16px; }
+
+.current { display: grid; gap: 8px; color: var(--text); }
+.label { color: var(--muted); margin-right: 6px; }
+
+.forms { display: grid; gap: 16px; }
