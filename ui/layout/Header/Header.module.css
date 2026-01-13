@@ -1,67 +1,66 @@
 .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 16px 24px;
-    border-bottom: 1px solid var(--border);
-    background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
 }
 
 .logo {
-    font-weight: 600;
-    font-size: 18px;
-    color: var(--accent);
-    text-decoration: none;
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--accent);
+  text-decoration: none;
 }
 
 .nav {
-    display: flex;
-    gap: 16px;
+  display: flex;
+  gap: 16px;
 }
 
 .nav a {
-    color: var(--text);
-    text-decoration: none;
+  color: var(--text);
+  text-decoration: none;
 }
 
 .nav a:hover {
-    color: var(--accent);
+  color: var(--accent);
 }
 
 .brandSwitch {
-    display: flex;
-    gap: 12px;
+  display: flex;
+  gap: 12px;
 }
 
 .brandSwitch a {
-    font-size: 14px;
-    color: var(--muted);
+  font-size: 14px;
+  color: var(--muted);
 }
 
 .right {
-    display: flex;
-    align-items: center;
-    gap: 14px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
 }
 
 .user {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    border: 1px solid var(--border);
-    background: var(--bg);
-    border-radius: 999px;
-    padding: 6px 10px 6px 6px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  border-radius: 999px;
+  padding: 6px 10px 6px 6px;
 }
 
 .userName {
-    font-size: 14px;
-    color: var(--text);
+  font-size: 14px;
+  color: var(--text);
 }
 
 .userLink {
-    text-decoration: none;
-    color: inherit;
-    display: inline-flex;
+  text-decoration: none;
+  color: inherit;
+  display: inline-flex;
 }
-

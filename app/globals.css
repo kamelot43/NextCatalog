@@ -16,7 +16,6 @@
   --skeleton: rgba(0, 0, 0, 0.08);
 }
 
-
 [data-brand='alpha'] {
   --accent: #2563eb; /* blue */
 }
@@ -31,7 +30,11 @@
 
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
   color: var(--text);
   background: var(--bg);
 }

@@ -1,133 +1,133 @@
 .wrap {
-    display: grid;
-    gap: 12px;
+  display: grid;
+  gap: 12px;
 }
 
 .table {
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: auto;
-    max-width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: auto;
+  max-width: 100%;
 }
 
 .toolbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
 }
 
 .count {
-    color: var(--muted);
+  color: var(--muted);
 }
 
 .clear {
-    border: 1px solid var(--border);
-    background: transparent;
-    color: var(--text);
-    border-radius: 10px;
-    padding: 8px 12px;
-    cursor: pointer;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  border-radius: 10px;
+  padding: 8px 12px;
+  cursor: pointer;
 }
 
 .clear:hover {
-    border-color: var(--accent);
-    color: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 .table {
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
 }
 
-.headerRow, .row {
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: minmax(220px, 1fr);
-    min-width: 700px;
+.headerRow,
+.row {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(220px, 1fr);
+  min-width: 700px;
 }
 
 .cellLeft {
-    width: 160px;
-    min-width: 160px;
-    padding: 12px;
-    background: var(--bg);
-    border-right: 1px solid var(--border);
-    font-weight: 600;
+  width: 160px;
+  min-width: 160px;
+  padding: 12px;
+  background: var(--bg);
+  border-right: 1px solid var(--border);
+  font-weight: 600;
 
-    position: sticky;
-    left: 0;
-    z-index: 2;
+  position: sticky;
+  left: 0;
+  z-index: 2;
 }
 
-
 .cell {
-    padding: 12px;
-    border-right: 1px solid var(--border);
-    background: var(--bg);
+  padding: 12px;
+  border-right: 1px solid var(--border);
+  background: var(--bg);
 }
 
 .headerRow .cell {
-    background: var(--bg);
+  background: var(--bg);
 }
 
 .headerRow .cell:last-child,
 .row .cell:last-child {
-    border-right: none;
+  border-right: none;
 }
 
 .prodTitle a {
-    color: var(--text);
-    text-decoration: none;
+  color: var(--text);
+  text-decoration: none;
 }
 
 .prodTitle a:hover {
-    color: var(--accent);
+  color: var(--accent);
 }
 
 .remove {
-    margin-top: 8px;
-    border: 1px solid var(--border);
-    background: transparent;
-    border-radius: 10px;
-    padding: 6px 10px;
-    cursor: pointer;
-    font-size: 12px;
+  margin-top: 8px;
+  border: 1px solid var(--border);
+  background: transparent;
+  border-radius: 10px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 12px;
 }
 
 .remove:hover {
-    border-color: var(--accent);
-    color: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 .empty {
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 20px;
-    background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  background: var(--bg);
 }
 
 .emptyTitle {
-    margin: 0 0 8px 0;
-    font-size: 18px;
+  margin: 0 0 8px 0;
+  font-size: 18px;
 }
 
 .emptyText {
-    margin: 0 0 12px 0;
-    color: var(--muted);
+  margin: 0 0 12px 0;
+  color: var(--muted);
 }
 
 .link {
-    color: var(--accent);
-    text-decoration: none;
+  color: var(--accent);
+  text-decoration: none;
 }
 
 .link:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .best {
-    background: rgba(0, 128, 0, 0.08);
-    border-left: 3px solid rgba(0, 128, 0, 0.6);
+  background: rgba(0, 128, 0, 0.08);
+  border-left: 3px solid rgba(0, 128, 0, 0.6);
 }

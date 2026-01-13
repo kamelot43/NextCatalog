@@ -1,18 +1,18 @@
 .wrap {
-    display: inline-flex;
-    gap: 10px;
-    align-items: center;
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
 }
 
 .link {
-    text-decoration: none;
-    color: var(--muted);
-    padding: 4px 8px;
-    border-radius: 8px;
+  text-decoration: none;
+  color: var(--muted);
+  padding: 4px 8px;
+  border-radius: 8px;
 }
 
 .link.active {
-    color: var(--accent);
-    background: rgba(0, 0, 0, 0.04);
-    font-weight: 600;
+  color: var(--accent);
+  background: rgba(0, 0, 0, 0.04);
+  font-weight: 600;
 }

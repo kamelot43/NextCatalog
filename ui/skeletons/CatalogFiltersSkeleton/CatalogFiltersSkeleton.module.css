@@ -1,58 +1,58 @@
 .root {
-    display: grid;
-    gap: 14px;
+  display: grid;
+  gap: 14px;
 }
 
 .block {
-    display: grid;
-    gap: 8px;
+  display: grid;
+  gap: 8px;
 }
 
 .label {
-    height: 12px;
-    width: 40%;
-    border-radius: 6px;
-    background: rgba(0, 0, 0, 0.06);
-    position: relative;
-    overflow: hidden;
+  height: 12px;
+  width: 40%;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.06);
+  position: relative;
+  overflow: hidden;
 }
 
 .input,
 .select {
-    height: 40px;
-    border-radius: 12px;
-    background: rgba(0, 0, 0, 0.06);
-    position: relative;
-    overflow: hidden;
+  height: 40px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.06);
+  position: relative;
+  overflow: hidden;
 }
 
 .reset {
-    height: 40px;
-    border-radius: 12px;
-    background: rgba(0, 0, 0, 0.06);
-    position: relative;
-    overflow: hidden;
+  height: 40px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.06);
+  position: relative;
+  overflow: hidden;
 }
 
 .label::after,
 .input::after,
 .select::after,
 .reset::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    transform: translateX(-100%);
-    background: linear-gradient(
-            90deg,
-            rgba(255, 255, 255, 0) 0%,
-            rgba(255, 255, 255, 0.55) 50%,
-            rgba(255, 255, 255, 0) 100%
-    );
-    animation: shimmer 1.2s infinite;
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.55) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: shimmer 1.2s infinite;
 }
 
 @keyframes shimmer {
-    100% {
-        transform: translateX(100%);
-    }
+  100% {
+    transform: translateX(100%);
+  }
 }

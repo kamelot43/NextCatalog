@@ -1,84 +1,84 @@
 .card {
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    border-radius: 16px;
-    overflow: hidden;
-    background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 16px;
+  overflow: hidden;
+  background: #fff;
 
-    /* чтобы карточки в гриде выглядели ровно */
-    min-height: 300px;
-    display: grid;
-    grid-template-rows: 160px 1fr;
+  /* чтобы карточки в гриде выглядели ровно */
+  min-height: 300px;
+  display: grid;
+  grid-template-rows: 160px 1fr;
 }
 
 .image {
-    background: rgba(0, 0, 0, 0.06);
-    position: relative;
-    overflow: hidden;
+  background: rgba(0, 0, 0, 0.06);
+  position: relative;
+  overflow: hidden;
 }
 
 .body {
-    padding: 12px;
-    display: grid;
-    gap: 10px;
-    align-content: start;
+  padding: 12px;
+  display: grid;
+  gap: 10px;
+  align-content: start;
 }
 
 .title {
-    height: 18px;
-    width: 70%;
-    border-radius: 8px;
-    background: rgba(0, 0, 0, 0.06);
-    position: relative;
-    overflow: hidden;
+  height: 18px;
+  width: 70%;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.06);
+  position: relative;
+  overflow: hidden;
 }
 
 .meta {
-    height: 14px;
-    width: 90%;
-    border-radius: 8px;
-    background: rgba(0, 0, 0, 0.06);
-    position: relative;
-    overflow: hidden;
+  height: 14px;
+  width: 90%;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.06);
+  position: relative;
+  overflow: hidden;
 }
 
 .metaShort {
-    height: 14px;
-    width: 55%;
-    border-radius: 8px;
-    background: rgba(0, 0, 0, 0.06);
-    position: relative;
-    overflow: hidden;
+  height: 14px;
+  width: 55%;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.06);
+  position: relative;
+  overflow: hidden;
 }
 
 .footer {
-    margin-top: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
 }
 
 .price {
-    height: 18px;
-    width: 40%;
-    border-radius: 8px;
-    background: rgba(0, 0, 0, 0.06);
-    position: relative;
-    overflow: hidden;
+  height: 18px;
+  width: 40%;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.06);
+  position: relative;
+  overflow: hidden;
 }
 
 .actions {
-    display: flex;
-    gap: 10px;
+  display: flex;
+  gap: 10px;
 }
 
 .circleBtn {
-    width: 34px;
-    height: 34px;
-    border-radius: 999px;
-    background: rgba(0, 0, 0, 0.06);
-    position: relative;
-    overflow: hidden;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.06);
+  position: relative;
+  overflow: hidden;
 }
 
 /* shimmer */
@@ -88,21 +88,21 @@
 .metaShort::after,
 .price::after,
 .circleBtn::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    transform: translateX(-100%);
-    background: linear-gradient(
-            90deg,
-            rgba(255, 255, 255, 0) 0%,
-            rgba(255, 255, 255, 0.55) 50%,
-            rgba(255, 255, 255, 0) 100%
-    );
-    animation: shimmer 1.2s infinite;
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.55) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: shimmer 1.2s infinite;
 }
 
 @keyframes shimmer {
-    100% {
-        transform: translateX(100%);
-    }
+  100% {
+    transform: translateX(100%);
+  }
 }

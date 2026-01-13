@@ -1,35 +1,35 @@
 .wrap {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .note {
-    position: absolute;
-    bottom: -15px;
-    left: 0;
-    font-size: 10px;
-    color: var(--muted);
+  position: absolute;
+  bottom: -15px;
+  left: 0;
+  font-size: 10px;
+  color: var(--muted);
 }
 
 .button {
-    border: 1px solid var(--border);
-    background: transparent;
-    color: var(--text);
-    border-radius: 10px;
-    padding: 6px 10px;
-    cursor: pointer;
-    font-size: 13px;
-    line-height: 1;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  border-radius: 10px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 13px;
+  line-height: 1;
 }
 
 .button[aria-pressed='true'] {
-    border-color: var(--accent);
-    color: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 .button:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
+  opacity: 0.6;
+  cursor: not-allowed;
 }

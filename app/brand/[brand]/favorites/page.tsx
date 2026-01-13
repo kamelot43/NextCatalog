@@ -13,46 +13,40 @@ import { selectProductsByIds } from '@/server/catalog/selectProductsByIds';
 export const dynamic = 'force-dynamic';
 
 function toBrandTitle(brand: string) {
-    return brand ? brand[0].toUpperCase() + brand.slice(1) : 'Brand';
+  return brand ? brand[0].toUpperCase() + brand.slice(1) : 'Brand';
 }
 
 export async function generateMetadata({
-   params,
+  params,
 }: {
-    params: Promise<{ brand: string }>;
+  params: Promise<{ brand: string }>;
 }): Promise<Metadata> {
+  const { brand } = await params;
+  const brandTitle = toBrandTitle(brand);
 
-    const {brand} = await params;
-    const brandTitle = toBrandTitle(brand);
-
-    return {
-        title: `${brandTitle} • Favorites`,
-        description: `Your saved ${brandTitle} cars. Quickly return to models you liked.`,
-    };
+  return {
+    title: `${brandTitle} • Favorites`,
+    description: `Your saved ${brandTitle} cars. Quickly return to models you liked.`,
+  };
 }
 
-export default async function FavoritesPage({
-    params,
-}: {
-    params: Promise<{ brand: string }>;
-}) {
-    const { brand } = await params;
-    if (!isBrand(brand)) return notFound();
+export default async function FavoritesPage({ params }: { params: Promise<{ brand: string }> }) {
+  const { brand } = await params;
+  if (!isBrand(brand)) return notFound();
 
-    const [favoritesMap] = await Promise.all([getFavoritesMap()]);
+  const [favoritesMap] = await Promise.all([getFavoritesMap()]);
 
-    const ids = favoritesMap[brand] ?? [];
+  const ids = favoritesMap[brand] ?? [];
 
-    const all = await getAllProductsByBrandServer(brand);
-    if (!all) return notFound();
+  const all = await getAllProductsByBrandServer(brand);
+  if (!all) return notFound();
 
-    const products = selectProductsByIds(all, ids);
+  const products = selectProductsByIds(all, ids);
 
-
-    return (
-        <section className={styles.page}>
-            <h1 className={styles.title}>Favorites</h1>
-            <FavoritesList brand={brand} products={products}/>
-        </section>
-    );
+  return (
+    <section className={styles.page}>
+      <h1 className={styles.title}>Favorites</h1>
+      <FavoritesList brand={brand} products={products} />
+    </section>
+  );
 }

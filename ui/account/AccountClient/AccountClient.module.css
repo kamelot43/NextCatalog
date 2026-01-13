@@ -1,21 +1,37 @@
-.grid { display: grid; gap: 16px; }
-
-.card {
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 16px;
-    background: var(--bg);
+.grid {
+  display: grid;
+  gap: 16px;
 }
 
-.cardTitle { margin: 0 0 12px 0; font-size: 16px; }
+.card {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  background: var(--bg);
+}
 
-.current { display: grid; gap: 8px; color: var(--text); }
-.label { color: var(--muted); margin-right: 6px; }
+.cardTitle {
+  margin: 0 0 12px 0;
+  font-size: 16px;
+}
 
-.forms { display: grid; gap: 16px; }
+.current {
+  display: grid;
+  gap: 8px;
+  color: var(--text);
+}
+.label {
+  color: var(--muted);
+  margin-right: 6px;
+}
+
+.forms {
+  display: grid;
+  gap: 16px;
+}
 
 .currentRow {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }

@@ -1,125 +1,127 @@
 .form {
-    display: grid;
-    gap: 12px;
+  display: grid;
+  gap: 12px;
 }
 
 .field {
-    display: grid;
-    gap: 6px;
+  display: grid;
+  gap: 6px;
 }
 
 .label {
-    font-size: 13px;
-    color: var(--muted);
+  font-size: 13px;
+  color: var(--muted);
 }
 
 .input {
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 10px 12px;
-    background: var(--bg);
-    color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: var(--bg);
+  color: var(--text);
 }
 
 .row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .button {
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 10px 14px;
-    background: var(--bg);
-    cursor: pointer;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 14px;
+  background: var(--bg);
+  cursor: pointer;
 }
 
 .button:hover {
-    background: var(--bg-hover);
+  background: var(--bg-hover);
 }
 
 .button:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .saved {
-    font-size: 13px;
-    color: var(--muted);
+  font-size: 13px;
+  color: var(--muted);
 }
 
 .hint {
-    margin: 0;
-    font-size: 12px;
-    color: var(--muted);
+  margin: 0;
+  font-size: 12px;
+  color: var(--muted);
 }
 
 .avatars {
-    display: grid;
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    gap: 8px;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 8px;
 }
 
 @media (max-width: 520px) {
-    .avatars {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
+  .avatars {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 .avatars {
-    display: grid;
-    grid-template-columns: repeat(9, minmax(0, 1fr));
-    gap: 8px;
+  display: grid;
+  grid-template-columns: repeat(9, minmax(0, 1fr));
+  gap: 8px;
 }
 
 @media (max-width: 720px) {
-    .avatars {
-        grid-template-columns: repeat(6, minmax(0, 1fr));
-    }
+  .avatars {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
 }
 @media (max-width: 520px) {
-    .avatars {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
+  .avatars {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 .avatars {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 14px;
-    padding-top: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding-top: 6px;
 }
 
 .avatarBtn {
-    width: 64px;
-    height: 64px;
-    padding: 0;
-    border-radius: 999px;
-    border: 2px solid transparent;
-    background: transparent;
-    cursor: pointer;
-    display: grid;
-    place-items: center;
-    transition: transform 120ms ease, border-color 120ms ease, box-shadow 120ms ease;
+  width: 64px;
+  height: 64px;
+  padding: 0;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition:
+    transform 120ms ease,
+    border-color 120ms ease,
+    box-shadow 120ms ease;
 }
 
 .avatarBtn:hover {
-    transform: translateY(-1px);
+  transform: translateY(-1px);
 }
 
 .avatarActive {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.18);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.18);
 }
 
 .avatarImg {
-    width: 64px;
-    height: 64px;
-    border-radius: 999px;
-    object-fit: cover;
-    display: block;
-    border: 1px solid var(--border);
-    background: var(--bg);
+  width: 64px;
+  height: 64px;
+  border-radius: 999px;
+  object-fit: cover;
+  display: block;
+  border: 1px solid var(--border);
+  background: var(--bg);
 }
-

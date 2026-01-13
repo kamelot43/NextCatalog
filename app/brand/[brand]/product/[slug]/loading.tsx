@@ -1,5 +1,5 @@
-import { ProductDetailsSkeleton } from "@/ui/skeletons/ProductDetailsSkeleton/ProductDetailsSkeleton";
+import { ProductDetailsSkeleton } from '@/ui/skeletons/ProductDetailsSkeleton/ProductDetailsSkeleton';
 
 export default function Loading() {
-    return <ProductDetailsSkeleton />;
+  return <ProductDetailsSkeleton />;
 }

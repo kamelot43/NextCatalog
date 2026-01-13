@@ -6,23 +6,19 @@ import type { Preferences } from '@/server/actions/account';
 const PreferencesContext = createContext<Preferences | null>(null);
 
 export function PreferencesProvider({
-    value,
-    children,
+  value,
+  children,
 }: {
-    value: Preferences;
-    children: React.ReactNode;
+  value: Preferences;
+  children: React.ReactNode;
 }) {
-    return (
-        <PreferencesContext.Provider value={value}>
-            {children}
-        </PreferencesContext.Provider>
-    );
+  return <PreferencesContext.Provider value={value}>{children}</PreferencesContext.Provider>;
 }
 
 export function usePreferences() {
-    const ctx = useContext(PreferencesContext);
-    if (!ctx) {
-        throw new Error('usePreferences must be used within PreferencesProvider');
-    }
-    return ctx;
+  const ctx = useContext(PreferencesContext);
+  if (!ctx) {
+    throw new Error('usePreferences must be used within PreferencesProvider');
+  }
+  return ctx;
 }

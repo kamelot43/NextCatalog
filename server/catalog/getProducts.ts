@@ -9,42 +9,45 @@ import { getUniqueCategories, getUniqueYears } from '@/shared/lib/catalog/catalo
 import type { CatalogQuery } from '@/shared/lib/catalog/catalogQuery';
 
 export type CatalogServerResult = {
-    items: ReturnType<typeof paginateProducts>['items'];
-    total: number;
-    totalPages: number;
-    currentPage: number;
-    limit: number;
+  items: ReturnType<typeof paginateProducts>['items'];
+  total: number;
+  totalPages: number;
+  currentPage: number;
+  limit: number;
 
-    categories: string[];
-    years: number[];
+  categories: string[];
+  years: number[];
 };
 
 export function getProductsServer(brand: string, query: CatalogQuery): CatalogServerResult | null {
-    if (!isBrand(brand)) return null;
+  if (!isBrand(brand)) return null;
 
-    const all = PRODUCTS_BY_BRAND[brand];
+  const all = PRODUCTS_BY_BRAND[brand];
 
-    const categories = getUniqueCategories(all);
-    const years = getUniqueYears(all);
+  const categories = getUniqueCategories(all);
+  const years = getUniqueYears(all);
 
-    const filtered = filterProducts(all, {
-        q: query.q,
-        category: query.category,
-        year: query.year,
-    });
+  const filtered = filterProducts(all, {
+    q: query.q,
+    category: query.category,
+    year: query.year,
+  });
 
-    const sorted = sortProducts(filtered, query.sort);
+  const sort = query.sort ?? 'year-desc';
+  const page = query.page ?? 1;
+  const limit = query.limit ?? 6;
 
-    const paginated = paginateProducts(sorted, query.page, query.limit);
+  const sorted = sortProducts(filtered, sort);
+  const paginated = paginateProducts(sorted, page, limit);
 
-    return {
-        items: paginated.items,
-        total: paginated.total,
-        totalPages: paginated.totalPages,
-        currentPage: paginated.currentPage,
-        limit: query.limit,
+  return {
+    items: paginated.items,
+    total: paginated.total,
+    totalPages: paginated.totalPages,
+    currentPage: paginated.currentPage,
+    limit,
 
-        categories,
-        years,
-    };
+    categories,
+    years,
+  };
 }

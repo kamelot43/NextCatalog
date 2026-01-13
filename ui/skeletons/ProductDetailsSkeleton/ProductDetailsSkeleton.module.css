@@ -1,147 +1,147 @@
 .page {
-    display: grid;
-    gap: 14px;
-    max-width: 1100px;
-    margin: 0 auto;
+  display: grid;
+  gap: 14px;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
 .backTop {
-    height: 14px;
-    width: 160px;
-    border-radius: 8px;
-    background: rgba(0, 0, 0, 0.06);
-    position: relative;
-    overflow: hidden;
+  height: 14px;
+  width: 160px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.06);
+  position: relative;
+  overflow: hidden;
 }
 
 /* hero */
 .hero {
-    height: 320px;
-    border-radius: 18px;
-    background: rgba(0, 0, 0, 0.06);
-    position: relative;
-    overflow: hidden;
-    border: 1px solid rgba(0, 0, 0, 0.08);
+  height: 320px;
+  border-radius: 18px;
+  background: rgba(0, 0, 0, 0.06);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 /* card */
 .card {
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    border-radius: 18px;
-    padding: 18px;
-    background: #fff;
-    display: grid;
-    gap: 14px;
-    position: relative;
-    overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 18px;
+  padding: 18px;
+  background: #fff;
+  display: grid;
+  gap: 14px;
+  position: relative;
+  overflow: hidden;
 }
 
 .top {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 16px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
 }
 
 .title {
-    height: 24px;
-    width: 360px;
-    max-width: 80vw;
-    border-radius: 10px;
-    background: rgba(0, 0, 0, 0.06);
-    position: relative;
-    overflow: hidden;
+  height: 24px;
+  width: 360px;
+  max-width: 80vw;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.06);
+  position: relative;
+  overflow: hidden;
 }
 
 /* pills вместо meta */
 .pills {
-    margin-top: 10px;
-    display: flex;
-    gap: 8px;
+  margin-top: 10px;
+  display: flex;
+  gap: 8px;
 }
 
 .pill {
-    height: 28px;
-    width: 90px;
-    border-radius: 999px;
-    background: rgba(0, 0, 0, 0.06);
-    position: relative;
-    overflow: hidden;
+  height: 28px;
+  width: 90px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.06);
+  position: relative;
+  overflow: hidden;
 }
 
 .actions {
-    display: flex;
-    gap: 10px;
+  display: flex;
+  gap: 10px;
 }
 
 .circleBtn {
-    width: 34px;
-    height: 34px;
-    border-radius: 999px;
-    background: rgba(0, 0, 0, 0.06);
-    position: relative;
-    overflow: hidden;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.06);
+  position: relative;
+  overflow: hidden;
 }
 
 /* price row */
 .priceRow {
-    display: grid;
-    gap: 6px;
+  display: grid;
+  gap: 6px;
 }
 
 .price {
-    height: 24px;
-    width: 220px;
-    border-radius: 10px;
-    background: rgba(0, 0, 0, 0.06);
-    position: relative;
-    overflow: hidden;
+  height: 24px;
+  width: 220px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.06);
+  position: relative;
+  overflow: hidden;
 }
 
 .subPrice {
-    height: 12px;
-    width: 260px;
-    max-width: 70vw;
-    border-radius: 10px;
-    background: rgba(0, 0, 0, 0.06);
-    position: relative;
-    overflow: hidden;
+  height: 12px;
+  width: 260px;
+  max-width: 70vw;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.06);
+  position: relative;
+  overflow: hidden;
 }
 
 /* specs */
 .specs {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 12px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
 }
 
 .specItem {
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    border-radius: 14px;
-    padding: 14px;
-    background: #fff;
-    display: grid;
-    gap: 10px;
-    position: relative;
-    overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 14px;
+  padding: 14px;
+  background: #fff;
+  display: grid;
+  gap: 10px;
+  position: relative;
+  overflow: hidden;
 }
 
 .specLabel {
-    height: 12px;
-    width: 40%;
-    border-radius: 8px;
-    background: rgba(0, 0, 0, 0.06);
-    position: relative;
-    overflow: hidden;
+  height: 12px;
+  width: 40%;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.06);
+  position: relative;
+  overflow: hidden;
 }
 
 .specValue {
-    height: 16px;
-    width: 65%;
-    border-radius: 8px;
-    background: rgba(0, 0, 0, 0.06);
-    position: relative;
-    overflow: hidden;
+  height: 16px;
+  width: 65%;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.06);
+  position: relative;
+  overflow: hidden;
 }
 
 /* shimmer — сохраняем тот же стиль/цвета */
@@ -155,42 +155,42 @@
 .subPrice::after,
 .specLabel::after,
 .specValue::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    transform: translateX(-100%);
-    background: linear-gradient(
-            90deg,
-            rgba(255, 255, 255, 0) 0%,
-            rgba(255, 255, 255, 0.55) 50%,
-            rgba(255, 255, 255, 0) 100%
-    );
-    animation: shimmer 1.2s infinite;
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.55) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: shimmer 1.2s infinite;
 }
 
 @keyframes shimmer {
-    100% {
-        transform: translateX(100%);
-    }
+  100% {
+    transform: translateX(100%);
+  }
 }
 
 @media (max-width: 900px) {
-    .hero {
-        height: 240px;
-    }
+  .hero {
+    height: 240px;
+  }
 }
 
 @media (max-width: 700px) {
-    .hero {
-        height: 180px;
-    }
+  .hero {
+    height: 180px;
+  }
 
-    .top {
-        flex-direction: column;
-        align-items: stretch;
-    }
+  .top {
+    flex-direction: column;
+    align-items: stretch;
+  }
 
-    .specs {
-        grid-template-columns: 1fr;
-    }
+  .specs {
+    grid-template-columns: 1fr;
+  }
 }

@@ -1,32 +1,32 @@
 .pagination {
-    margin-top: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
 }
 
 .link {
-    padding: 8px 12px;
-    border-radius: 10px;
-    border: 1px solid rgba(0, 0, 0, 0.12);
-    background: rgba(255, 255, 255, 0.9);
-    text-decoration: none;
-    font-weight: 600;
-    color: var(--accent);
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  font-weight: 600;
+  color: var(--accent);
 }
 
 .link:hover {
-    background: rgba(255, 255, 255, 1);
+  background: rgba(255, 255, 255, 1);
 }
 
 .disabled {
-    opacity: 0.45;
-    pointer-events: none;
+  opacity: 0.45;
+  pointer-events: none;
 }
 
 .info {
-    padding: 8px 12px;
-    border-radius: 10px;
-    background: rgba(0, 0, 0, 0.04);
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.04);
 }
