@@ -1,22 +1,22 @@
 import styles from './BrandStats.module.css';
 
-type Stats = {
-  total: number;
-  categoriesCount: number;
-  yearMin: number | null;
-  yearMax: number | null;
-};
+// type Stats = {
+//   total: number;
+//   categoriesCount: number;
+//   yearMin: number | null;
+//   yearMax: number | null;
+// };
 
-async function fetchStats(brand: string): Promise<Stats> {
-  const mod = await import('@/server/stats/getBrandStats');
-  const stats = mod.getBrandStatsServer(brand);
-
-  if (!stats) {
-    throw new Error('NOT_FOUND');
-  }
-
-  return stats;
-}
+// async function fetchStats(brand: string): Promise<Stats> {
+//   const mod = await import('@/server/stats/getBrandStats');
+//   const stats = mod.getBrandStatsServer(brand);
+//
+//   if (!stats) {
+//     throw new Error('NOT_FOUND');
+//   }
+//
+//   return stats;
+// }
 
 export async function BrandStats({ brand }: { brand: string }) {
   const mod = await import('@/server/stats/getBrandStats');

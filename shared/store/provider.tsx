@@ -1,8 +1,8 @@
 'use client';
 
 import { Provider } from 'react-redux';
-import { useRef } from 'react';
-import { makeStore, type AppStore, type RootState } from './store';
+import { useMemo } from 'react';
+import { makeStore, type RootState } from './store';
 
 export function Providers({
   children,
@@ -11,11 +11,10 @@ export function Providers({
   children: React.ReactNode;
   preloadedState?: RootState;
 }) {
-  const storeRef = useRef<AppStore | null>(null);
 
-  if (!storeRef.current) {
-    storeRef.current = makeStore(preloadedState);
-  }
+  const store = useMemo(() => {
+    return makeStore(preloadedState);
+  }, [preloadedState]);
 
-  return <Provider store={storeRef.current}>{children}</Provider>;
+  return <Provider store={store}>{children}</Provider>;
 }

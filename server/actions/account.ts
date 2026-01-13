@@ -73,29 +73,13 @@ export async function getPreferences(): Promise<Preferences> {
 }
 
 function normalizePrefs(raw: Partial<Preferences>): Preferences {
-  const locale = raw.locale === 'en-US' ? 'en-US' : 'ru-RU';
-  const currency = raw.currency === 'USD' ? 'USD' : raw.currency === 'EUR' ? 'EUR' : 'RUB';
-
-  const rawCatalog = (raw as any).catalog ?? {};
-  const limit = rawCatalog.limit === 12 ? 12 : rawCatalog.limit === 24 ? 24 : 6;
-
-  let sort: CatalogSort;
-
-  switch (rawCatalog.sort) {
-    case 'price-asc':
-    case 'price-desc':
-    case 'power-desc':
-    case 'year-desc':
-      sort = rawCatalog.sort;
-      break;
-    default:
-      sort = 'year-desc';
-  }
-
   return {
-    locale,
-    currency,
-    catalog: { limit, sort },
+    locale: clampLocale(raw.locale ?? null),
+    currency: clampCurrency(raw.currency ?? null),
+    catalog: {
+      limit: clampCatalogLimit(String(raw.catalog?.limit ?? 6)),
+      sort: clampSort(raw.catalog?.sort ?? null),
+    },
   };
 }
 
@@ -159,10 +143,19 @@ export async function updateProfileAction(brand: string, formData: FormData) {
   return { ok: true as const, profile: next };
 }
 
+type RawPreferencesForm = {
+  locale: string;
+  currency: string;
+  catalog: {
+    limit: number;
+    sort: string;
+  };
+};
+
 export async function updatePreferencesAction(brand: string, formData: FormData) {
   if (!isBrand(brand)) return { ok: false, prefs: defaultPrefs };
 
-  const raw = {
+  const raw: RawPreferencesForm = {
     locale: String(formData.get('locale') ?? ''),
     currency: String(formData.get('currency') ?? ''),
     catalog: {
@@ -171,7 +164,7 @@ export async function updatePreferencesAction(brand: string, formData: FormData)
     },
   };
 
-  const next = normalizePrefs(raw as any);
+  const next = normalizePrefs(raw as Partial<Preferences>);
 
   await writeJsonCookie(PREFS_COOKIE, next);
   revalidatePath(`/brand/${brand}/account`);

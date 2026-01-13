@@ -10,6 +10,9 @@ import { getPreferences } from '@/server/actions/account';
 import { PreferencesProvider } from '@/shared/context/PreferencesContext';
 import { ProfileGate } from '@/ui/layout/ProfileGate/ProfileGate';
 import styles from './layout.module.css';
+import {Preferences} from "@/server/actions/account";
+import {Profile} from "@/server/actions/account";
+import {RootState} from "@/shared/store/store";
 
 export async function generateMetadata({
   params,
@@ -43,7 +46,7 @@ export default async function BrandLayout({
     getCompareMap(),
     getPreferences(),
     getProfile(),
-  ]);
+  ]) as [Record<string, string[]>, Record<string, string[]>, Preferences, Profile];
 
   const preloadedState = {
     favorites: { idsByBrand: favoritesMap },
@@ -54,7 +57,7 @@ export default async function BrandLayout({
     <div data-brand={brand} className={styles.page}>
       <ProfileGate initialProfile={profile}>
         <PreferencesProvider value={prefs}>
-          <Providers preloadedState={preloadedState as any}>
+          <Providers preloadedState={preloadedState as unknown as RootState}>
             <Header brand={brand} />
             <main className={styles.main}>{children}</main>
             <Footer />

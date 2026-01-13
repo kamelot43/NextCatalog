@@ -21,10 +21,8 @@ export function BrandSwitch({ currentBrand, brands }: Props) {
     const brandRouteMatch = pathname.match(/^\/brand\/([^/]+)(\/.*)?$/);
 
     if (brandRouteMatch) {
-      const currentBrand = brandRouteMatch[1];
       const restPath = brandRouteMatch[2] ?? '';
 
-      // если на детальной странице товара — отправляем в каталог нового бренда
       if (restPath.startsWith('/product/')) {
         return `/brand/${nextBrand}/catalog`;
       }

@@ -3,7 +3,7 @@
 import { useTransition } from 'react';
 import styles from './FavoriteButton.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import type { RootState, AppDispatch } from '@/shared/store/store';
+import type { AppDispatch } from '@/shared/store/store';
 
 import { toggleFavorite, hydrateFavorites } from '@/features/favorites/model/favoritesSlice';
 import { selectIsProductInFavorites } from '@/features/favorites/model/favoritesSelectors';

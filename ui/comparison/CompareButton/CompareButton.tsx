@@ -45,11 +45,10 @@ export function CompareButton({ productId, brand }: Props) {
           startTransition(async () => {
             const res = await toggleCompareCookie(brand, productId);
 
-            // @ts-ignore
-            if (!res.ok && res.reason === 'LIMIT') {
-              dispatch(toggleCompare({ brand, id: productId }));
-              return;
-            }
+              if (!res.ok && 'reason' in res && res.reason === 'LIMIT') {
+                  dispatch(toggleCompare({ brand, id: productId }));
+                  return;
+              }
 
             if (res.ok) dispatch(hydrateCompare(res.map));
           });

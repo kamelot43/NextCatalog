@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import styles from './CatalogFilters.module.css';
 import type { CatalogQuery, CatalogSort } from '@/shared/lib/catalog/catalogQuery';
@@ -42,6 +42,7 @@ export default function CatalogFilters({ categories, years, initialQuery }: Prop
   // Синхронизация локального состояния поиска с URL при навигации
   useEffect(() => {
     const searchQueryFromUrl = searchParams.get('q') ?? '';
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setSearchQuery((prev) => (prev === searchQueryFromUrl ? prev : searchQueryFromUrl));
   }, [searchParams]);
 
@@ -59,7 +60,7 @@ export default function CatalogFilters({ categories, years, initialQuery }: Prop
   ].filter(Boolean);
 
   // Функция для обновления URL
-  function updateUrl(newParams: URLSearchParams) {
+  const updateUrl = useCallback((newParams: URLSearchParams) => {
     const queryString = newParams.toString();
     const newUrl = queryString ? `${pathname}?${queryString}` : pathname;
     const currentQueryString = searchParams.toString();
@@ -67,7 +68,7 @@ export default function CatalogFilters({ categories, years, initialQuery }: Prop
     if (newUrl !== currentUrl) {
       router.push(newUrl);
     }
-  }
+  }, [pathname, router, searchParams]);
 
   function removeParam(key: 'q' | 'category' | 'year' | 'sort') {
     const nextParams = new URLSearchParams(searchParams.toString());
@@ -92,7 +93,7 @@ export default function CatalogFilters({ categories, years, initialQuery }: Prop
     }, 400);
 
     return () => clearTimeout(debounceTimeout);
-  }, [searchQuery, pathname]);
+  }, [searchQuery, pathname, updateUrl]);
 
   // Обработчики изменений фильтров
   function handleCategoryChange(selectedCategory: string) {

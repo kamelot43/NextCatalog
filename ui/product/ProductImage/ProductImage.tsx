@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { BLUR_DATA_URL } from '@/shared/lib/images/blurDataUrl';
 
 type Props = {
@@ -15,13 +15,15 @@ type Props = {
   priority?: boolean;
 };
 
-export function ProductImage({ src, alt, className, fill = true, width, height, priority }: Props) {
+export function ProductImage({ src, alt, className, fill = true, width, height }: Props) {
   const fallback = '/images/placeholder.jpg';
-  const [currentSrc, setCurrentSrc] = useState(src || fallback);
 
-  useEffect(() => {
-    setCurrentSrc(src || fallback);
-  }, [src]);
+  const [currentSrc, setCurrentSrc] = useState(() => src || fallback);
+
+  if (src && src !== currentSrc && currentSrc !== fallback) {
+    setCurrentSrc(src);
+  }
+
 
   return (
     <Image
