@@ -13,5 +13,5 @@ export function getProductImageSrc({ brand, category, image }: GetProductImageSr
 
   if (!safeCategory) return '/images/placeholder.jpg';
 
-  return `/images/${brand}/${safeCategory}.jpg`;
+  return `/images/${brand}/${safeCategory}.png`;
 }

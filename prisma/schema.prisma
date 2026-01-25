@@ -1,0 +1,31 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Product {
+  id           String  @id
+  brand        String
+  slug         String
+  title        String
+  category     String
+  year         Int
+  priceRub     Int
+  currency     String  @default("RUB")
+  image        String?
+
+  powerHp      Int
+  transmission String
+  drive        String
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@unique([brand, slug])
+  @@index([brand])
+  @@index([brand, category])
+  @@index([brand, year])
+}

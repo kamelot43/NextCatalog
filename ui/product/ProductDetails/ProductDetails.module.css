@@ -20,14 +20,15 @@
   position: relative;
   border-radius: 18px;
   overflow: hidden;
-  background: rgba(0, 0, 0, 0.06);
+  aspect-ratio: 16 / 9;
   height: 320px;
+  width: 100%;
   border: 1px solid var(--border);
 }
 
 .heroImg {
-  object-fit: cover;
-  transform: scale(1.02);
+  object-fit: contain;
+  transform: scale(1.5);
 }
 
 .heroFade {
