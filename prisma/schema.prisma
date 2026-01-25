@@ -1,20 +1,22 @@
+// prisma/schema.prisma
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model Product {
-  id           String  @id
+  id           String   @id @default(cuid())
   brand        String
   slug         String
   title        String
   category     String
   year         Int
   priceRub     Int
-  currency     String  @default("RUB")
+  currency     String   @default("RUB")
   image        String?
 
   powerHp      Int

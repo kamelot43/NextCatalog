@@ -1,14 +1,9 @@
+// prisma/seed.ts
 import { PrismaClient } from '@prisma/client'
-import { PrismaPg } from '@prisma/adapter-pg' // 1. Импортируем адаптер для PostgreSQL
 import { PRODUCTS_BY_BRAND } from '../shared/mock/products'
 
-// 2. Создаём адаптер, передавая ему строку подключения
-const adapter = new PrismaPg({
-    connectionString: process.env.DATABASE_URL,
-})
-
-// 3. Создаём клиент с адаптером
-const prisma = new PrismaClient({ adapter })
+// Простой PrismaClient без адаптера
+const prisma = new PrismaClient()
 
 async function main() {
     await prisma.product.deleteMany();
