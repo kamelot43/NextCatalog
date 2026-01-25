@@ -45,6 +45,8 @@
 .primaryBtn {
   background: var(--accent);
   color: #fff;
+  display: flex;
+  gap: 5px;
 }
 
 .secondaryBtn {

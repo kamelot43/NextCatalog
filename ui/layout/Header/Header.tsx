@@ -20,7 +20,9 @@ export function Header({ brand }: Props) {
   return (
     <header className={styles.header}>
       <Link href={basePath} className={styles.logo}>
-        NextCatalog
+          <h1 className="text-2xl font-bold bg-gradient-to-r from-primary via-blue-400 to-primary bg-[length:200%_auto] animate-perfect-balance">
+              NextCatalog
+          </h1>
       </Link>
 
       <BrandNav brand={brand} />

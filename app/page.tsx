@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import styles from './HomePage.module.css';
+import { Sparkles, ArrowRight } from 'lucide-react';
 
 const BRANDS = [
   { id: 'alpha', title: 'Alpha', desc: 'Modern lineup: city & sport models.' },
@@ -12,14 +13,16 @@ export default function HomePage() {
   return (
     <main className={styles.page}>
       <section className={styles.hero}>
-        <h1 className={styles.h1}>NextCatalog</h1>
+        <h1 className="text-4xl font-bold bg-gradient-to-r from-primary via-blue-400 to-primary bg-[length:200%_auto] animate-perfect-balance">
+          NextCatalog
+        </h1>
         <p className={styles.subtitle}>
           Browse cars by brand, save favorites, compare models and tune your preferences.
         </p>
 
         <div className={styles.ctaRow}>
           <Link className={styles.primaryBtn} href="/brand/alpha">
-            Start with Alpha →
+            <Sparkles size={15} /> Start with Alpha <ArrowRight size={20}/>
           </Link>
         </div>
       </section>
