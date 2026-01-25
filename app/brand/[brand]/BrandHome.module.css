@@ -63,7 +63,7 @@
 
 .list {
   margin: 0;
-  padding-left: 18px;
+  padding-left: 0;
   color: var(--muted);
   line-height: 1.6;
 }
