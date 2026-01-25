@@ -121,10 +121,7 @@
 .link {
   color: var(--accent);
   text-decoration: none;
-}
-
-.link:hover {
-  text-decoration: underline;
+  cursor: pointer;
 }
 
 .best {

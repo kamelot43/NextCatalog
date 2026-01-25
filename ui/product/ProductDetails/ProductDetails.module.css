@@ -9,11 +9,11 @@
   color: var(--muted);
   text-decoration: none;
   width: fit-content;
+  cursor: pointer;
 }
 
 .backTop:hover {
   color: var(--accent);
-  text-decoration: underline;
 }
 
 .hero {

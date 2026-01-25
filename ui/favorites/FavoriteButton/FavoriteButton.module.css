@@ -13,3 +13,7 @@
   border-color: var(--accent);
   color: var(--accent);
 }
+
+.button[aria-pressed='true'] svg {
+  fill: var(--accent);
+}

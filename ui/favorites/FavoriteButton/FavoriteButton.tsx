@@ -4,6 +4,7 @@ import { useTransition } from 'react';
 import styles from './FavoriteButton.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch } from '@/shared/store/store';
+import { Star } from 'lucide-react';
 
 import { toggleFavorite, hydrateFavorites } from '@/features/favorites/model/favoritesSlice';
 import { selectIsProductInFavorites } from '@/features/favorites/model/favoritesSelectors';
@@ -46,7 +47,7 @@ export function FavoriteButton({ brand, productId }: Props) {
       }}
       title={isIn ? 'Remove from favorites' : 'Add to favorites'}
     >
-      {isIn ? '★' : '☆'}
+      <Star size={14} />
     </button>
   );
 }

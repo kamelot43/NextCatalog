@@ -59,13 +59,21 @@
 .h2 {
   margin: 0 0 10px 0;
   font-size: 18px;
+  display: flex;
+  gap: 5px;
 }
 
 .list {
   margin: 0;
-  padding-left: 0;
+  padding-left: 5px;
   color: var(--muted);
   line-height: 1.6;
+}
+
+.list li {
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .allBrands {

@@ -6,6 +6,12 @@ import { isBrand } from '@/shared/config/brands';
 import { Suspense } from 'react';
 import { BrandStats } from '@/ui/brand/BrandStats/BrandStats';
 import { BrandStatsSkeleton } from '@/ui/skeletons/BrandStatsSkeleton/BrandStatsSkeleton';
+import {
+  Heart,
+  BarChart3,
+  Cookie,
+  Lightbulb
+} from 'lucide-react';
 
 function toBrandTitle(brand: string) {
   return brand ? brand[0].toUpperCase() + brand.slice(1) : 'Brand';
@@ -65,11 +71,11 @@ export default async function BrandHome({ params }: { params: Promise<{ brand: s
       </Suspense>
 
       <section className={styles.section}>
-        <h2 className={styles.h2}>Tips</h2>
+        <h2 className={styles.h2}><Lightbulb/>Tips</h2>
         <ul className={styles.list}>
-          <li>Add cars to favorites from catalog cards.</li>
-          <li>Compare up to 4 cars at once.</li>
-          <li>Currency and catalog defaults are stored in cookies.</li>
+          <li> <Heart size="15" color="black"/> Cars to favorites from catalog cards.</li>
+          <li> <BarChart3 size="15" color="black"/> Compare up to 4 cars at once.</li>
+          <li> <Cookie size="15" color="brown"/> Currency and catalog defaults are stored in cookies.</li>
         </ul>
       </section>
     </main>
